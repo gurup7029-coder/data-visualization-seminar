@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topic 1: 3D Plotting in Matplotlib | Seminar Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/plotly-2.27.0.min.js"></script>
+  <script src="assets/js/d3.v7.min.js"></script>
+  <script src="assets/js/prism.min.js"></script>
+  <link rel="stylesheet" href="assets/css/prism-tomorrow.min.css">
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link active">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container">
+
+    <!-- ============================================================
+         SLIDE 1: 3D Axes Setup & Introduction
+         ============================================================ -->
+    <section class="slide-section active" id="slide-1">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.1</div>
+      <h1 class="slide-title">Three-Dimensional Plotting in Matplotlib</h1>
+      <p class="slide-subtitle">
+        We enable three-dimensional plots by importing the <code>mplot3d</code> toolkit, included with the main Matplotlib installation. With this 3D axes enabled, we can now plot a variety of three-dimensional plot types.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Core Concepts & Definitions</h3>
+          <ul style="margin-left: 1.25rem; margin-top: 1rem; color: var(--text-muted); line-height: 1.9;">
+            <li><strong>mplot3d Toolkit:</strong> Extension included in standard Matplotlib that registers 3D projection axes.</li>
+            <li><strong>Axis Registration:</strong> <code>ax = plt.axes(projection='3d')</code> or <code>fig.add_subplot(projection='3d')</code>.</li>
+            <li><strong>Elevation (elev):</strong> Pitch angle above the XY plane in degrees (default 30°).</li>
+            <li><strong>Azimuth (azim):</strong> Yaw angle rotation around the Z axis in degrees (default -60°).</li>
+          </ul>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Autonomous drones and robotic arms establishing 3D spatial coordinate axes (X, Y, Z) to compute kinematic movement trajectories.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Industrial robotics automation, aerospace drone flight telemetry, and computer vision 3D scene reconstruction.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="colab-execution-cell">
+          <div class="colab-cell-header">
+            <span><strong class="colab-execution-prompt">[1]</strong> Google Colab Execution Cell</span>
+            <span style="color:#10b981;">✓ Executed in 0.28s</span>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
+
+fig = plt.figure()
+ax = plt.axes(projection='3d')</code></pre>
+          </div>
+          <div class="colab-cell-output">
+            <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+            <img src="assets/images/3d_axes.png" alt="3D Axes Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 2: Three-Dimensional Points and Lines (Helix)
+         ============================================================ -->
+    <section class="slide-section" id="slide-2">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.2</div>
+      <h2 class="slide-title">Three-Dimensional Points and Lines</h2>
+      <p class="slide-subtitle">
+        The most basic three-dimensional plot is a line or scatter plot created from sets of <strong>(x, y, z) triples</strong>. In analogy with the more common two-dimensional plots, we can create these using the <code>ax.plot3D</code> and <code>ax.scatter3D</code> functions.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 class="card-title">🖱️ Live Rotatable 3D Helix</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Interactive Plotly — Drag to rotate</span>
+            </div>
+            <!-- Zoom In, Zoom Out, Reset Action Toolbar -->
+            <div class="chart-3d-toolbar">
+              <button class="btn-chart-ctrl btn-zoom-in" data-chart="helix3dChart" title="Zoom In">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom In</span>
+              </button>
+              <button class="btn-chart-ctrl btn-zoom-out" data-chart="helix3dChart" title="Zoom Out">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom Out</span>
+              </button>
+              <button class="btn-chart-ctrl btn-reset-view" data-chart="helix3dChart" title="Reset View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+          <div class="chart-box" id="helix3dChart" style="min-height:380px;"></div>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">
+            💡 <em>Notice that by default, the scatter points have their transparency adjusted to give a sense of depth on the page.</em>
+          </p>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Visualizing the double-helix structure of DNA polymers and tracking spiral trajectories of charged subatomic particles inside synchrotron particle accelerators.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Structural biophysics & bioinformatics laboratories, pharmaceutical molecular design, and high-energy physics research (CERN).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="colab-execution-cell">
+          <div class="colab-cell-header">
+            <span><strong class="colab-execution-prompt">[2]</strong> Colab Cell • 3D Line & Scatter</span>
+            <span style="color:#10b981;">✓ Executed in 0.32s</span>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">ax = plt.axes(projection='3d')
+# Data for a three-dimensional line
+zline = np.linspace(0, 15, 1000)
+xline = np.sin(zline)
+yline = np.cos(zline)
+ax.plot3D(xline, yline, zline, 'gray')
+
+# Data for three-dimensional scattered points
+zdata = 15 * np.random.random(100)
+xdata = np.sin(zdata) + 0.1 * np.random.randn(100)
+ydata = np.cos(zdata) + 0.1 * np.random.randn(100)
+ax.scatter3D(xdata, ydata, zdata,
+             c=zdata, cmap='Greens')
+plt.show()</code></pre>
+          </div>
+          <div class="colab-cell-output">
+            <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+            <img src="assets/images/3d_helix.png" alt="3D Helix Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 3: 3D Scatter — Iris Dataset
+         ============================================================ -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.3</div>
+      <h2 class="slide-title">3D Scatter Plot — Iris Dataset</h2>
+      <p class="slide-subtitle">
+        Using <code>ax.scatter3D()</code> to visualize the <strong>Iris dataset</strong> (150 samples × 4 features) in 3D space, coloring by species to reveal class separation in petal and sepal dimensions.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="colab-execution-cell">
+          <div class="colab-cell-header">
+            <span><strong class="colab-execution-prompt">[3]</strong> Colab Cell • Iris 3D Scatter</span>
+            <span style="color:#10b981;">✓ Executed in 0.38s</span>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">import seaborn as sns
+iris = sns.load_dataset("iris")
+
+fig = plt.figure(figsize=(8, 6))
+ax = plt.axes(projection='3d')
+
+for species, group in iris.groupby('species'):
+    ax.scatter3D(group['sepal_length'],
+                 group['sepal_width'],
+                 group['petal_length'],
+                 label=species)
+
+ax.set_xlabel("Sepal Length")
+ax.set_ylabel("Sepal Width")
+ax.set_zlabel("Petal Length")
+ax.legend()
+plt.show()</code></pre>
+          </div>
+          <div class="colab-cell-output">
+            <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+            <img src="assets/images/3d_iris.png" alt="3D Iris Scatter Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 3D Scatter — Key Points</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>ax.scatter3D():</strong> Plots discrete 3D data points with customizable color, size, and markers.</li>
+            <li><strong>Iris Dataset:</strong> 150 samples × 4 numeric features + 1 species label (Fisher, 1936).</li>
+            <li><strong>Grouping:</strong> <code>groupby('species')</code> iterates over each class for color-coded scatter.</li>
+            <li><strong>Key Finding:</strong> <em>Setosa</em> is linearly separable; <em>Versicolor</em> and <em>Virginica</em> overlap in some dimensions.</li>
+            <li><strong>Depth Cue:</strong> Points further from the camera have lower opacity automatically.</li>
+          </ul>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Multi-biomarker patient profiling (blood pressure, fasting glucose, and cholesterol) to separate high-risk cardiovascular patients from healthy controls.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Clinical diagnostics in healthcare, oncology tumor profiling, and machine learning multi-feature clustering pipelines.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 4: Three-Dimensional Contour Plots (Interactive Slider)
+         ============================================================ -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.4</div>
+      <h2 class="slide-title">Three-Dimensional Contour Plots</h2>
+      <p class="slide-subtitle">
+        <code>mplot3d</code> contains tools to create three-dimensional relief plots. Like two-dimensional <code>ax.contour</code> plots, <code>ax.contour3D</code> requires all the input data to be in the form of <strong>two-dimensional regular grids</strong>, with the Z data evaluated at each point.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 class="card-title">🖱️ Interactive 3D Contour Surface</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Drag to rotate</span>
+            </div>
+            <!-- Zoom In, Zoom Out, Reset Action Toolbar -->
+            <div class="chart-3d-toolbar">
+              <button class="btn-chart-ctrl btn-zoom-in" data-chart="contour3dChart" title="Zoom In">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom In</span>
+              </button>
+              <button class="btn-chart-ctrl btn-zoom-out" data-chart="contour3dChart" title="Zoom Out">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom Out</span>
+              </button>
+              <button class="btn-chart-ctrl btn-reset-view" data-chart="contour3dChart" title="Reset View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+          <div class="controls-panel">
+            <div class="control-group">
+              <label class="control-label">Contour Levels: <span id="contourLevelVal">50</span></label>
+              <input type="range" class="control-slider" id="contourLevelSlider" min="5" max="100" step="5" value="50" />
+            </div>
+          </div>
+          <div class="chart-box" id="contour3dChart" style="min-height:380px;"></div>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Mapping atmospheric isobaric pressure ridges for hurricane intensity forecasting and seismic acoustic depth reflection gradients.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Meteorology centers (cyclone path predictions), geophysics subsurface exploration, and audio acoustic engineering.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="colab-execution-cell">
+          <div class="colab-cell-header">
+            <span><strong class="colab-execution-prompt">[4]</strong> Colab Cell • ax.contour3D</span>
+            <span style="color:#10b981;">✓ Executed in 0.52s</span>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">def f(x, y):
+    return np.sin(np.sqrt(x ** 2 + y ** 2))
+
+x = np.linspace(-6, 6, 30)
+y = np.linspace(-6, 6, 30)
+X, Y = np.meshgrid(x, y)
+Z = f(X, Y)
+
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+ax.contour3D(X, Y, Z, 50, cmap='binary')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
+plt.show()</code></pre>
+          </div>
+          <div class="colab-cell-output">
+            <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+            <img src="assets/images/3d_contour.png" alt="3D Contour Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5: View Init — Elevation & Azimuth (Interactive Sliders)
+         ============================================================ -->
+    <section class="slide-section" id="slide-5">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.5</div>
+      <h2 class="slide-title">Viewing Angles — <code>ax.view_init()</code></h2>
+      <p class="slide-subtitle">
+        Sometimes the default viewing angle is not optimal, in which case we can use the <code>view_init</code> method to set the <strong>elevation</strong> and <strong>azimuthal</strong> angles. Use the sliders below to explore how camera angles change the 3D view.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 class="card-title">🖱️ Camera Angle Explorer</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Adjust sliders to change view</span>
+            </div>
+            <!-- Zoom In, Zoom Out, Reset Action Toolbar -->
+            <div class="chart-3d-toolbar">
+              <button class="btn-chart-ctrl btn-zoom-in" data-chart="viewInitChart" title="Zoom In">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom In</span>
+              </button>
+              <button class="btn-chart-ctrl btn-zoom-out" data-chart="viewInitChart" title="Zoom Out">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom Out</span>
+              </button>
+              <button class="btn-chart-ctrl btn-reset-view" data-chart="viewInitChart" title="Reset View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+          <div class="controls-panel">
+            <div class="control-group">
+              <label class="control-label">Elevation (elev): <span id="elevVal">60</span>°</label>
+              <input type="range" class="control-slider" id="elevSlider" min="0" max="90" step="5" value="60" />
+            </div>
+            <div class="control-group">
+              <label class="control-label">Azimuth (azim): <span id="azimVal">35</span>°</label>
+              <input type="range" class="control-slider" id="azimSlider" min="-180" max="180" step="5" value="35" />
+            </div>
+          </div>
+          <div class="chart-box" id="viewInitChart" style="min-height:380px;"></div>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">
+            <code id="viewInitCodeSnippet">ax.view_init(<span class="token-highlight">elev=60, azim=35</span>)</code>
+          </p>
+        </div>
+
+        <div>
+          <div class="colab-execution-cell">
+            <div class="colab-cell-header">
+              <span><strong class="colab-execution-prompt">[5]</strong> Colab Cell • ax.view_init</span>
+              <span style="color:#10b981;">✓ Executed in 0.31s</span>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">ax.view_init(60, 35)
+fig</code></pre>
+            </div>
+            <div class="colab-cell-output">
+              <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+              <img src="assets/images/3d_view_init.png" alt="3D View Init Output" style="width:100%; border-radius:var(--radius-sm);" />
+            </div>
+          </div>
+
+          <div class="interactive-card" style="margin-top:1rem;">
+            <h3 class="card-title">📖 view_init Parameters</h3>
+            <ul style="margin-left:1.25rem; margin-top:0.75rem; color:var(--text-muted); line-height:1.9;">
+              <li><strong>elev:</strong> Elevation in degrees — rotates the camera up/down (0° = side view, 90° = top-down).</li>
+              <li><strong>azim:</strong> Azimuthal angle — rotates the camera around the Z axis.</li>
+            </ul>
+
+            <!-- Real-World Example Box -->
+            <div class="topic-realworld-box">
+              <div class="realworld-box-header">
+                <span>💡 Real-World Example & Industry Application</span>
+              </div>
+              <div class="realworld-box-content">
+                <div class="realworld-item example">
+                  <strong>🌐 Real-World Example:</strong> Multi-angle medical CT / MRI scan inspection to analyze complex bone fractures and vascular stents from optimal surgical angles.
+                </div>
+                <div class="realworld-item usage">
+                  <strong>🏢 Where It Is Used:</strong> Medical diagnostic workstations, CAD aerodynamic wind-tunnel visualization, and flight simulator camera positioning.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 6: Wireframes and Surface Plots (Interactive Dropdowns)
+         ============================================================ -->
+    <section class="slide-section" id="slide-6">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.6</div>
+      <h2 class="slide-title">Wireframes and Surface Plots</h2>
+      <p class="slide-subtitle">
+        Two other types of three-dimensional plots that work on gridded data are <strong>wireframes</strong> and <strong>surface plots</strong>. These take a grid of values and project it onto the specified three-dimensional surface, and can make the resulting three-dimensional forms quite easy to visualize. A surface plot is like a wireframe plot, but each face of the wireframe is a <em>filled polygon</em>.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 class="card-title">🖱️ Interactive Wireframe vs Surface</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Change render mode & colormap</span>
+            </div>
+            <!-- Zoom In, Zoom Out, Reset Action Toolbar -->
+            <div class="chart-3d-toolbar">
+              <button class="btn-chart-ctrl btn-zoom-in" data-chart="wireframeSurfaceChart" title="Zoom In">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom In</span>
+              </button>
+              <button class="btn-chart-ctrl btn-zoom-out" data-chart="wireframeSurfaceChart" title="Zoom Out">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom Out</span>
+              </button>
+              <button class="btn-chart-ctrl btn-reset-view" data-chart="wireframeSurfaceChart" title="Reset View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+          <div class="controls-panel">
+            <div class="control-group">
+              <label class="control-label">Render Mode:</label>
+              <select class="control-select" id="renderModeSelect">
+                <option value="both">Both (Wireframe + Surface)</option>
+                <option value="surface">Surface Only</option>
+                <option value="wireframe">Wireframe Only</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Colormap:</label>
+              <select class="control-select" id="colormapSelect">
+                <option value="Viridis">Viridis</option>
+                <option value="Portland">Portland</option>
+                <option value="Bluered">Blue-Red</option>
+                <option value="Earth">Earth</option>
+                <option value="Electric">Electric</option>
+                <option value="Hot">Hot</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-box" id="wireframeSurfaceChart" style="min-height:380px;"></div>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Modeling aerodynamic lift & drag pressure distributions over airplane wings and structural mechanical stress loads across bridge surfaces.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Aerospace engineering, Finite Element Analysis (FEA), and architectural tensile membrane roof design.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="colab-execution-cell">
+            <div class="colab-cell-header">
+              <span><strong class="colab-execution-prompt">[6]</strong> Colab Cell • Wireframe</span>
+              <span style="color:#10b981;">✓ Executed in 0.45s</span>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">fig = plt.figure()
+ax = plt.axes(projection='3d')
+ax.plot_wireframe(X, Y, Z, color='black')
+ax.set_title('wireframe')
+plt.show()</code></pre>
+            </div>
+          </div>
+
+          <div class="colab-execution-cell" style="margin-top:1rem;">
+            <div class="colab-cell-header">
+              <span><strong class="colab-execution-prompt">[7]</strong> Colab Cell • Surface</span>
+              <span style="color:#10b981;">✓ Executed in 0.61s</span>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">ax = plt.axes(projection='3d')
+ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
+                cmap='viridis', edgecolor='none')
+ax.set_title('surface')
+plt.show()</code></pre>
+            </div>
+            <div class="colab-cell-output">
+              <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+              <img src="assets/images/3d_wireframe_surface.png" alt="Wireframe & Surface Output" style="width:100%; border-radius:var(--radius-sm);" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7: Surface Triangulations
+         ============================================================ -->
+    <section class="slide-section" id="slide-7">
+      <div class="slide-badge">🧊 Topic 01 • Section 1.7</div>
+      <h2 class="slide-title">Surface Triangulations</h2>
+      <p class="slide-subtitle">
+        For some applications, the evenly sampled grids required by the preceding routines are overly restrictive and inconvenient. In these situations, the <strong>triangulation-based plots</strong> can be very useful. <code>ax.plot_trisurf()</code> builds a surface from irregular (non-gridded) point clouds using Delaunay triangulation.
+      </p>
+
+      <div class="card-grid-2col">
+        <!-- Interactive 3D Surface Triangulation with Colormap Switcher & Zoom/Reset Controls -->
+        <div class="interactive-card">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h3 class="card-title">🖱️ Live 3D Surface Triangulation</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Plotly Mesh3D Delaunay • Drag to rotate</span>
+            </div>
+            <!-- Action Toolbar: Zoom In, Zoom Out, Reset -->
+            <div class="chart-3d-toolbar">
+              <button class="btn-chart-ctrl btn-zoom-in" data-chart="triangulation3dChart" title="Zoom In">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom In</span>
+              </button>
+              <button class="btn-chart-ctrl btn-zoom-out" data-chart="triangulation3dChart" title="Zoom Out">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                <span>Zoom Out</span>
+              </button>
+              <button class="btn-chart-ctrl btn-reset-view" data-chart="triangulation3dChart" title="Reset View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Colormap Switcher Buttons as requested in Audio 2 -->
+          <div class="controls-panel" style="padding: 10px 14px; margin-bottom: 12px;">
+            <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">
+                  🎨 Surface Colormap (Choose Color):
+                </span>
+                <span id="activeTrisurfColormap" style="font-size:0.8rem; font-weight:800; color:var(--accent-primary);">Viridis</span>
+              </div>
+              <div class="colormap-btn-group" id="trisurfColormapBtns">
+                <button class="colormap-pill active" data-cmap="Viridis">Viridis</button>
+                <button class="colormap-pill" data-cmap="Plasma">Plasma</button>
+                <button class="colormap-pill" data-cmap="Turbo">Turbo</button>
+                <button class="colormap-pill" data-cmap="Coolwarm">Coolwarm</button>
+                <button class="colormap-pill" data-cmap="Spectral">Spectral</button>
+                <button class="colormap-pill" data-cmap="Electric">Electric</button>
+                <button class="colormap-pill" data-cmap="Rainbow">Rainbow</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-box" id="triangulation3dChart" style="min-height:380px;"></div>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> Airborne LiDAR drone sensor scans creating seamless 3D elevation meshes of jagged mountain terrain from unstructured point clouds.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> Geographic Information Systems (GIS), mining quarry volume estimation, civil engineering cut-and-fill surveying, and autonomous vehicle LiDAR obstacle mapping.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="colab-execution-cell">
+            <div class="colab-cell-header">
+              <span><strong class="colab-execution-prompt">[8]</strong> Colab Cell • Surface Triangulation</span>
+              <span style="color:#10b981;">✓ Executed in 0.72s</span>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">theta = 2 * np.pi * np.random.random(1000)
+r = 6 * np.random.random(1000)
+x = np.ravel(r * np.sin(theta))
+y = np.ravel(r * np.cos(theta))
+z = f(x, y)
+
+ax = plt.axes(projection='3d')
+ax.scatter(x, y, z, c=z, cmap='viridis',
+           linewidth=0.5)</code></pre>
+            </div>
+            <div class="colab-cell-output">
+              <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
+              <img src="assets/images/3d_triangulation.png" alt="Surface Triangulation Output" style="width:100%; border-radius:var(--radius-sm);" />
+            </div>
+          </div>
+
+          <div class="interactive-card" style="margin-top:1rem;">
+            <h3 class="card-title">📖 Triangulation — Key Concepts</h3>
+            <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+              <li><strong>Problem:</strong> Regular grids (<code>meshgrid</code>) can't represent all surfaces — irregular point clouds need a different approach.</li>
+              <li><strong>Delaunay Triangulation:</strong> Algorithm that connects irregular points into non-overlapping triangles, maximizing the minimum angle.</li>
+              <li><strong>ax.plot_trisurf():</strong> Takes raw (x, y, z) arrays and auto-triangulates them into a surface mesh.</li>
+              <li><strong>Random Sampling:</strong> In this example, 1000 random polar-coordinate points are scattered across the sinusoidal function <code>f(x,y) = sin(√(x²+y²))</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer-nav" style="margin-top: 2rem;">
+        <a href="index.html" class="footer-nav-card">◄ Home</a>
+        <a href="basemap.html" class="footer-nav-card" style="background: var(--accent-primary); color: white; border-color: var(--accent-primary);">Topic 2: Basemap ➔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Presentation Dock -->
+  <div class="slide-controls-dock">
+    <button class="slide-btn slide-btn-prev">◄ Prev</button>
+    <div class="slide-indicator">Slide 01 / 07</div>
+    <div class="slide-dots"></div>
+    <button class="slide-btn slide-btn-next">Next ►</button>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop">
+    <div class="cmd-palette-modal">
+      <div class="cmd-input-box">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="cmdInput" placeholder="Search slides, topics, datasets..." />
+      </div>
+      <ul class="cmd-results-list" id="cmdResultsList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

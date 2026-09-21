@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Visualization Seminar | Essential of Data Science</title>
+  <meta name="description" content="Seminar Presentation on Data Visualization in Essential of Data Science. Presented by Guru Prakash A (25322011), II MCA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/plotly-2.27.0.min.js"></script>
+  <script src="assets/js/d3.v7.min.js"></script>
+  <script src="assets/js/prism.min.js"></script>
+  <link rel="stylesheet" href="assets/css/prism-tomorrow.min.css">
+</head>
+<body>
+
+  <!-- Dynamic Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link active">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container">
+
+    <!-- SLIDE 1: Cover / Presenter Card with Cat Teacher Cartoon -->
+    <section class="slide-section active" id="slide-1" style="min-height: calc(100vh - 90px); display: flex; align-items: center; justify-content: center; padding: 1.5rem;">
+      <div class="presenter-fullpage-card" style="width: 100%; max-width: 1240px; background: white; border-radius: 24px; border: 1px solid var(--border-light); box-shadow: var(--shadow-xl); padding: 3rem; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2.5rem; align-items: center; position: relative; overflow: hidden;">
+        
+        <div style="z-index: 2;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <span class="slide-badge" style="background: rgba(37,99,235,0.1); color: var(--accent-primary); font-size: 0.95rem; padding: 8px 18px;">SUBJECT: ESSENTIAL OF DATA SCIENCE</span>
+            <span class="slide-badge" style="background: rgba(124,58,237,0.1); color: var(--accent-secondary); font-size: 0.95rem; padding: 8px 18px;">TOPIC: DATA VISUALIZATION</span>
+          </div>
+
+          <h1 style="font-family: var(--font-heading); font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 800; color: var(--text-main); margin-bottom: 2rem; line-height: 1.15;">
+            Seminar Presentation
+          </h1>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; background: var(--bg-secondary); padding: 2rem; border-radius: 16px; border: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;">PRESENTED BY</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-primary); font-family: var(--font-heading);">Guru Prakash A</div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;">REG. NUMBER</div>
+              <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-secondary); font-family: var(--font-code);">25322011</div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;">CLASS</div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: var(--accent-teal);">II MCA</div>
+            </div>
+
+            <div>
+              <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px;">DEPARTMENT</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); line-height: 1.3;">Dept. of Computer Science and Applications</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <a href="3d-plotting.html" class="slide-btn" style="background: var(--accent-primary); color: white; padding: 12px 24px; font-size: 1rem;">Start Presentation ➔</a>
+          </div>
+        </div>
+
+        <!-- Cat Teacher Cartoon Illustration -->
+        <div style="text-align: center; position: relative;">
+          <img src="assets/images/cat_teacher.png" alt="Cat Teacher Cartoon with Pointer Stick" style="width: 100%; max-height: 480px; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.08));" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Overview & Flowchart Diagram (Only Image & Prominent Bold Title) -->
+    <section class="slide-section" id="slide-2" style="min-height: calc(100vh - 90px); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+      <div class="slide-badge" style="margin-bottom: 1rem;">📖 Seminar Overview</div>
+      <h2 class="slide-title" style="font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem; letter-spacing: -0.5px;">
+        About This Seminar Topic
+      </h2>
+      <p class="slide-subtitle" style="font-size: 1.15rem; max-width: 900px; margin: 0 auto 2rem; color: var(--text-muted); line-height: 1.8;">
+        This seminar covers key topics from <em>Essential of Data Science</em> — focusing on <strong>Matplotlib 3D plotting</strong>, <strong>Basemap geographic mapping</strong>, and <strong>Seaborn statistical graphics</strong>.
+      </p>
+
+      <!-- BIG Flowchart Content Image (Full Focus) -->
+      <div class="interactive-card" style="width: 100%; max-width: 1100px; text-align: center; padding: 2rem; background: white; border-radius: 20px; box-shadow: var(--shadow-xl); border: 1px solid var(--border-light);">
+        <img class="flowchart-img" src="assets/images/flowchart.png" alt="Data Visualization Flowchart with Teddy Bear Teacher" style="width: 100%; max-height: 520px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.06));" />
+      </div>
+
+      <div style="margin-top: 1.75rem; display: flex; gap: 1rem; justify-content: center;">
+        <button class="slide-btn" onclick="if(window.goToSlide) window.goToSlide(2);" style="background: var(--accent-primary); color: white; padding: 10px 22px; font-weight: 700;">
+          Explore Foundations & Scope ➔
+        </button>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: What is Data Visualization & Key Topics Covered -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-badge">📌 Core Foundations & Scope</div>
+      <h2 class="slide-title" style="font-size: clamp(2.2rem, 4.2vw, 3.4rem); font-weight: 800;">What is Data Visualization?</h2>
+      <p class="slide-subtitle">
+        Understanding the graphical representation of data, why visual abstraction matters, and the core modules explored in this seminar.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+            <span>📌 What is Data Visualization?</span>
+          </h3>
+          <p style="color:var(--text-muted); line-height:1.9; margin-top:0.75rem;">
+            <strong>Data Visualization</strong> is the graphical representation of information and data. By using visual elements like charts, graphs, and maps,
+            data visualization tools provide an accessible way to see and understand trends, outliers, and patterns in data.
+          </p>
+          <p style="color:var(--text-muted); line-height:1.9; margin-top:0.75rem;">
+            In Python, the primary foundational library is <strong>Matplotlib</strong> — a multi-platform data visualization library built on NumPy arrays and designed to integrate with SciPy and Pandas.
+          </p>
+
+          <!-- Real-World Example Box -->
+          <div class="topic-realworld-box">
+            <div class="realworld-box-header">
+              <span>💡 Real-World Example & Industry Application</span>
+            </div>
+            <div class="realworld-box-content">
+              <div class="realworld-item example">
+                <strong>🌐 Real-World Example:</strong> High-frequency financial trading dashboards visualizing live stock fluctuations and public health pandemic rate tracking.
+              </div>
+              <div class="realworld-item usage">
+                <strong>🏢 Where It Is Used:</strong> FinTech quantitative analytics, enterprise executive reporting, healthcare epidemiology, and scientific research publications.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+            <span>🔑 Key Topics Covered in This Seminar</span>
+          </h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:2.1; font-size: 0.95rem;">
+            <li><strong>Topic 1: 3D Plotting in Matplotlib:</strong> <code>mplot3d</code> toolkit, 3D line & scatter, contour relief, camera angle optimization (<code>view_init</code>), wireframes & surfaces, and surface triangulations.</li>
+            <li><strong>Topic 2: Geographic Data with Basemap:</strong> Map projections (cylindrical, pseudo-cylindrical, perspective, conic), physical boundaries, relief backgrounds, and plotting multi-dimensional coordinates.</li>
+            <li><strong>Topic 3: Visualization with Seaborn:</strong> High-level statistical exploration, Kernel Density Estimation (KDE), pairplots, faceted grids, factor plots, and time-series bar plots.</li>
+          </ul>
+
+          <div style="margin-top: 1.5rem; display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="3d-plotting.html" class="slide-btn" style="background: var(--accent-secondary); color: white; padding: 8px 16px; font-size: 0.85rem;">Topic 1: 3D Plotting ➔</a>
+            <a href="basemap.html" class="slide-btn" style="background: var(--accent-teal); color: white; padding: 8px 16px; font-size: 0.85rem;">Topic 2: Basemap ➔</a>
+            <a href="seaborn.html" class="slide-btn" style="background: var(--accent-rose); color: white; padding: 8px 16px; font-size: 0.85rem;">Topic 3: Seaborn ➔</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Datasets Reference Table -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-badge">📁 Datasets Used in This Seminar</div>
+      <h2 class="slide-title">Dataset Reference Guide</h2>
+      <p class="slide-subtitle">
+        All datasets referenced across the three topics are summarized below. No per-slide repetition — this is your single reference table.
+      </p>
+
+      <div class="interactive-card" style="margin-bottom:1.5rem;">
+        <h3 class="card-title" style="margin-bottom:1rem;">📊 All Datasets at a Glance</h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.92rem;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border-light); background:var(--bg-secondary); text-align:left;">
+                <th style="padding:10px;">Dataset</th>
+                <th style="padding:10px;">Rows × Cols</th>
+                <th style="padding:10px;">Key Columns</th>
+                <th style="padding:10px;">Used In</th>
+                <th style="padding:10px;">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700; color:var(--accent-rose);">🌸 Iris</td>
+                <td style="padding:10px;">150 × 5</td>
+                <td style="padding:10px;"><code>sepal_length, sepal_width, petal_length, petal_width, species</code></td>
+                <td style="padding:10px;">3D Scatter, Pairplot, KDE</td>
+                <td style="padding:10px;">Fisher, 1936 / <code>sns.load_dataset("iris")</code></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700; color:var(--accent-primary);">🍽️ Tips</td>
+                <td style="padding:10px;">244 × 7</td>
+                <td style="padding:10px;"><code>total_bill, tip, sex, smoker, day, time, size</code></td>
+                <td style="padding:10px;">Faceted Histograms, Factor Plots, 3D Bar</td>
+                <td style="padding:10px;"><code>sns.load_dataset("tips")</code></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700; color:var(--accent-teal);">✈️ Flights</td>
+                <td style="padding:10px;">144 × 3</td>
+                <td style="padding:10px;"><code>year, month, passengers</code> (pivoted 12×12)</td>
+                <td style="padding:10px;">Heatmap, 3D Surface Topography</td>
+                <td style="padding:10px;"><code>sns.load_dataset("flights")</code></td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700; color:var(--accent-secondary);">🌐 World Cities</td>
+                <td style="padding:10px;">20 × 5</td>
+                <td style="padding:10px;"><code>city, country, lat, lon, pop</code></td>
+                <td style="padding:10px;">Basemap Scatter Overlay, Bubble Map</td>
+                <td style="padding:10px;">Curated major metro areas</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700; color:#d97706;">📐 Parametric Helix</td>
+                <td style="padding:10px;">1000 pts</td>
+                <td style="padding:10px;"><code>z = linspace(0,15), x = sin(z), y = cos(z)</code></td>
+                <td style="padding:10px;">3D Line & Scatter, ax.plot3D</td>
+                <td style="padding:10px;">Generated via NumPy</td>
+              </tr>
+              <tr>
+                <td style="padding:10px; font-weight:700;">🔬 Sinusoidal Grid</td>
+                <td style="padding:10px;">30×30 mesh</td>
+                <td style="padding:10px;"><code>Z = sin(sqrt(X² + Y²))</code>, meshgrid(-6,6)</td>
+                <td style="padding:10px;">Contour3D, Wireframe, Surface, Triangulation</td>
+                <td style="padding:10px;">Generated via NumPy meshgrid</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Real-World Example Box for Datasets -->
+      <div class="topic-realworld-box" style="margin-bottom: 2rem;">
+        <div class="realworld-box-header">
+          <span>💡 Real-World Example & Industry Application</span>
+        </div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example">
+            <strong>🌐 Real-World Example:</strong> Benchmark datasets like Fisher's Iris and restaurant tipping logs provide standard ground-truth baselines for verifying statistical clustering and predictive modeling.
+          </div>
+          <div class="realworld-item usage">
+            <strong>🏢 Where It Is Used:</strong> Machine learning algorithm validation, data science university curriculum benchmark tests, and automated model evaluation pipelines.
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Footer for Datasets Slide -->
+      <div class="slide-footer-nav" style="margin-top: 2rem;">
+        <a href="javascript:void(0)" onclick="if(window.goToSlide) window.goToSlide(0)" class="footer-nav-card">
+          ↺ Back to Cover
+        </a>
+        <a href="3d-plotting.html" class="footer-nav-card" style="background: var(--accent-primary); color: white; border-color: var(--accent-primary);">
+          Start Topic 1: 3D Plotting ➔
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Presentation Dock -->
+  <div class="slide-controls-dock">
+    <button class="slide-btn slide-btn-prev">◄ Prev</button>
+    <div class="slide-indicator">Slide 01 / 04</div>
+    <div class="slide-dots"></div>
+    <button class="slide-btn slide-btn-next">Next ►</button>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop">
+    <div class="cmd-palette-modal">
+      <div class="cmd-input-box">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="cmdInput" placeholder="Search slides, topics, datasets..." />
+      </div>
+      <ul class="cmd-results-list" id="cmdResultsList"></ul>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>

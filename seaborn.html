@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topic 3: Visualization with Seaborn | Seminar Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/plotly-2.27.0.min.js"></script>
+  <script src="assets/js/d3.v7.min.js"></script>
+  <script src="assets/js/prism.min.js"></script>
+  <link rel="stylesheet" href="assets/css/prism-tomorrow.min.css">
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link active">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container">
+
+    <!-- SLIDE 1: Why Use Seaborn — Feature Comparison -->
+    <section class="slide-section active" id="slide-1">
+      <div class="slide-badge">📊 Topic 03 • Section 3.0</div>
+      <h1 class="slide-title">Visualization with Seaborn</h1>
+      <p class="slide-subtitle">
+        <strong>Definition:</strong> The main idea of Seaborn is that it provides <em>high-level commands</em> to create a variety of plot types
+        useful for <strong>statistical data exploration</strong>, and even some statistical model fitting.
+        Seaborn is built on top of Matplotlib and integrates closely with <strong>Pandas DataFrames</strong>.
+      </p>
+
+      <div class="interactive-card" style="margin-bottom:1.5rem;">
+        <h3 class="card-title" style="margin-bottom:1rem;">⚔️ Feature Comparison Matrix: Matplotlib vs. Seaborn</h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.925rem; text-align:left;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border-light); background:var(--bg-secondary);">
+                <th style="padding:10px;">Feature / Dimension</th>
+                <th style="padding:10px; color:#4f46e5;">Matplotlib (Low-Level Core)</th>
+                <th style="padding:10px; color:#e11d48;">Seaborn (High-Level Statistical)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Level of Abstraction</td>
+                <td style="padding:10px;">Low-level (requires manual axis & color setup)</td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">High-level (declarative one-liner functions)</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Data Integration</td>
+                <td style="padding:10px;">NumPy arrays & basic lists</td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">Native Pandas DataFrames (<code>x='col'</code>, <code>hue='group'</code>)</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Statistical Estimators</td>
+                <td style="padding:10px;">Manual calculation (KDE, regression, CI)</td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">Built-in automatic KDE, linear regression & error bars</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Subplot Grids</td>
+                <td style="padding:10px;">Manual loop over <code>plt.subplots(r, c)</code></td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">Automated grids (<code>pairplot</code>, <code>jointplot</code>, <code>FacetGrid</code>)</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Default Color Themes</td>
+                <td style="padding:10px;">Basic default colors</td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">Sophisticated publication-ready color palettes</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:10px; font-weight:700;">Lines of Code Required</td>
+                <td style="padding:10px;">15–30 lines for complex grouped plots</td>
+                <td style="padding:10px; font-weight:600; color:#e11d48;">1–3 concise lines</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Rapid exploratory data analysis (EDA) on multi-million row retail customer sales transactions using single-line statistical commands.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Data science consulting firms, tech companies, and corporate analytics teams needing fast statistical insight without manual Matplotlib boilerplate.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 2: Code Comparison Examples -->
+    <section class="slide-section" id="slide-2">
+      <div class="slide-badge">📊 Topic 03 • Code Comparison</div>
+      <h2 class="slide-title">Side-by-Side Code Comparison</h2>
+      <p class="slide-subtitle">
+        Comparing code complexity for common data science visualization tasks in Matplotlib vs. Seaborn.
+        Uses <strong>Tips dataset</strong> (244 rows × 7 cols) — <em>see <a href="index.html">Home → Datasets</a> for full schema</em>.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge" style="color:#4f46e5;">Matplotlib (12 Lines)</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python"># Grouped Scatter Plot in Matplotlib
+fig, ax = plt.subplots(figsize=(6, 4))
+for sex, group in tips.groupby('sex'):
+    ax.scatter(group['total_bill'],
+               group['tip'], label=sex)
+ax.set_xlabel('Total Bill ($)')
+ax.set_ylabel('Tip ($)')
+ax.set_title('Matplotlib Scatter')
+ax.legend(title='Gender')
+plt.show()</code></pre>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge" style="color:#e11d48;">Seaborn (1 Line)</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python"># Same Grouped Scatter in Seaborn
+sns.scatterplot(x='total_bill', y='tip',
+                hue='sex', data=tips)
+plt.title('Seaborn Scatter')
+plt.show()</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid-2col" style="margin-top:1.5rem;">
+        <div class="code-container">
+          <div class="code-header"><span class="code-lang-badge" style="color:#4f46e5;">Matplotlib KDE (Manual Math)</span></div>
+          <div class="code-content">
+            <pre><code class="language-python">from scipy.stats import gaussian_kde
+# Requires computing KDE kernel manually
+plt.hist(data, density=True, alpha=0.5)
+kde = gaussian_kde(data)
+x_grid = np.linspace(data.min(), data.max(), 100)
+plt.plot(x_grid, kde(x_grid), color='red')</code></pre>
+          </div>
+        </div>
+        <div class="code-container">
+          <div class="code-header"><span class="code-lang-badge" style="color:#e11d48;">Seaborn KDE (Automated)</span></div>
+          <div class="code-content">
+            <pre><code class="language-python"># Single automated parameter kde=True
+sns.histplot(data, kde=True, color='teal')</code></pre>
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Clean automated grouping by customer segment (e.g. subscriber vs non-subscriber spend distributions) in enterprise data warehouses.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Fintech product analytics, e-commerce conversion tracking, and automated machine learning feature engineering reports.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 3: Histograms, KDE & Densities -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-badge">📊 Topic 03 • Section 3.1</div>
+      <h2 class="slide-title">Histograms & Kernel Density Estimation (KDE)</h2>
+      <p class="slide-subtitle">
+        <strong>Definition (KDE):</strong> Rather than a histogram (which bins data), a <em>Kernel Density Estimate</em> provides a
+        <strong>smooth continuous estimate of the distribution</strong> using a kernel function placed at each data point.
+        Seaborn provides this with <code>sns.kdeplot()</code> and <code>sns.histplot(kde=True)</code>.
+        <em>Dataset: Tips (244 rows) — <a href="index.html">see Datasets reference</a>.</em>
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="controls-panel">
+            <div class="control-group">
+              <label class="control-label">Kernel Bandwidth (bw): <span id="bwVal">1.0</span></label>
+              <input type="range" class="control-slider" id="bandwidthSlider" min="0.2" max="3.0" step="0.1" value="1.0" />
+            </div>
+          </div>
+          <div class="chart-box" id="seabornKdeChart"></div>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">
+            💡 <em>Larger bandwidth → smoother curve (more bias, less variance). Smaller → more peaks but noisier.</em>
+          </p>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 KDE — Key Definitions</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Histogram:</strong> Counts data in discrete bins; blocky representation of distribution shape.</li>
+            <li><strong>KDE (Kernel Density Estimation):</strong> Places a smooth kernel function at each data point and sums them for a continuous probability density estimate.</li>
+            <li><strong>Bandwidth (bw):</strong> Controls kernel width — the smoothing parameter. Controls bias-variance tradeoff.</li>
+            <li><code>sns.kdeplot(data[col], shade=True)</code> — Shaded KDE curve.</li>
+            <li><code>sns.histplot(data, kde=True)</code> — Combined histogram + KDE overlay.</li>
+            <li><strong>Joint Distribution:</strong> Pass full 2D dataset to <code>kdeplot</code> for 2D contour density visualization.</li>
+          </ul>
+          <div class="colab-cell-output" style="margin-top:1rem;">
+            <img src="assets/images/seaborn_histplot_kde.png" alt="Seaborn Histplot KDE" style="width:100%; border-radius:var(--radius-md);" />
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Quantitative finance stock return volatility modeling — using KDE curves to evaluate non-normal distribution tails and financial risk VaR.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Investment banks, quantitative trading hedge funds, insurance actuarial risk analysis, and network latency monitoring.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 4: Pair Plots -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-badge">📊 Topic 03 • Section 3.2</div>
+      <h2 class="slide-title">Pair Plots — <code>sns.pairplot()</code></h2>
+      <p class="slide-subtitle">
+        <strong>Definition:</strong> When you generalize joint plots to datasets of larger dimensions, you end up with <em>pair plots</em>.
+        This is very useful for <strong>exploring correlations between multidimensional data</strong>, when you'd like to plot all pairs of values against each other.
+        Uses <strong>Iris dataset</strong> (150 rows × 5 cols) — <em><a href="index.html">see Datasets reference</a>.</em>
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header">
+            <h3 class="card-title">Seaborn 4×4 Pairplot Matrix</h3>
+            <span class="slide-badge">Iris Dataset</span>
+          </div>
+          <img src="assets/images/seaborn_pairplot.png" alt="Seaborn Pairplot" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--border-light);" />
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Pairplot — Concepts</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Off-diagonal cells:</strong> Bivariate scatter plots between each pair of numeric features.</li>
+            <li><strong>Diagonal cells:</strong> Univariate distribution (histogram or KDE) for each feature.</li>
+            <li><code>hue='species'</code> — Colors points by categorical class labels, enabling class separation analysis.</li>
+            <li><code>markers=["o","s","D"]</code> — Different marker shapes per species group.</li>
+            <li>The 4×4 Iris pairplot maps: sepal_length × sepal_width × petal_length × petal_width.</li>
+            <li><strong>Key finding:</strong> <em>setosa</em> is linearly separable; <em>versicolor</em> and <em>virginica</em> overlap in some dimensions.</li>
+          </ul>
+          <div class="code-container" style="margin-top:1rem;">
+            <div class="code-header">
+              <span class="code-lang-badge">Python Code</span>
+              <div class="code-actions">
+                <button class="btn-code-action btn-copy-code">Copy</button>
+                <button class="btn-code-action btn-colab-code">Colab</button>
+              </div>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">import seaborn as sns
+iris = sns.load_dataset("iris")
+
+# 4x4 Pairplot Matrix colored by species
+sns.pairplot(iris, hue='species',
+             height=2.5,
+             markers=["o", "s", "D"])
+plt.suptitle("Pairwise Bivariate Relationships",
+             y=1.02)
+plt.show()</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Genomic biomarker phenotype screening across dozens of gene expression features to isolate distinctive disease sub-types.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Bioinformatics oncology research, chemical spectroscopy analysis, and multi-variable predictive model feature selection.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 5: Faceted Histograms -->
+    <section class="slide-section" id="slide-5">
+      <div class="slide-badge">📊 Topic 03 • Section 3.3</div>
+      <h2 class="slide-title">Faceted Histograms — <code>sns.FacetGrid</code></h2>
+      <p class="slide-subtitle">
+        <strong>Definition:</strong> Sometimes the best way to view data is via <em>histograms of subsets</em>.
+        Seaborn's <code>FacetGrid</code> makes this extremely simple by creating a grid of plots, one per value of a categorical variable.
+        Uses <strong>Tips dataset</strong> — <em><a href="index.html">see Datasets reference</a>.</em>
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">📖 FacetGrid — Key Definitions</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>FacetGrid:</strong> A class that creates a grid of subplots, one per unique value of a conditioning variable (e.g., one panel per day of week).</li>
+            <li><code>sns.FacetGrid(tips, col="day")</code> — Creates one column panel per day.</li>
+            <li><code>g.map(sns.histplot, "total_bill")</code> — Maps a histogram of <code>total_bill</code> onto each facet panel.</li>
+            <li><strong>Row facets:</strong> <code>row="time"</code> adds another dimension of conditioning (Lunch vs Dinner).</li>
+            <li><strong>Use case:</strong> Compare tip distributions across different days, times, or smoking categories.</li>
+          </ul>
+          <div class="code-container" style="margin-top:1rem;">
+            <div class="code-header">
+              <span class="code-lang-badge">FacetGrid Code</span>
+              <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">tips = sns.load_dataset("tips")
+
+# FacetGrid: one panel per day, colored by smoker
+g = sns.FacetGrid(tips, col="day",
+                  hue="smoker", col_wrap=2,
+                  height=3.5)
+g.map(sns.histplot, "total_bill",
+      bins=15, kde=True)
+g.add_legend()
+g.set_axis_labels("Total Bill ($)", "Count")
+plt.show()</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📊 Joint Distribution — <code>sns.jointplot()</code></h3>
+          <p style="color:var(--text-muted); line-height:1.8; margin-top:0.75rem; font-size:0.94rem;">
+            <strong>Definition:</strong> Similar to the pair plot but for <em>two specific variables</em>.
+            <code>sns.jointplot()</code> shows the <strong>joint distribution</strong> between two datasets, along with the associated <em>marginal distributions</em>.
+          </p>
+          <ul style="margin-left:1.25rem; margin-top:0.75rem; color:var(--text-muted); line-height:1.9; font-size:0.93rem;">
+            <li><code>kind='scatter'</code> — Scatter plot (default).</li>
+            <li><code>kind='kde'</code> — 2D kernel density contours + marginal KDEs.</li>
+            <li><code>kind='hex'</code> — Hexbin density heatmap.</li>
+            <li><code>kind='reg'</code> — Scatter + regression line.</li>
+          </ul>
+          <img src="assets/images/seaborn_jointplot.png" alt="Seaborn Jointplot" style="width:100%; border-radius:var(--radius-md); margin-top:1rem; border:1px solid var(--border-light);" />
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Analyzing customer tip amounts and check sizes partitioned across dining times (Lunch vs Dinner) and seating smoking categories.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Hospitality management, retail store branch comparison analytics, and clinical drug trial cohort split comparisons.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 6: Factor Plots / catplot -->
+    <section class="slide-section" id="slide-6">
+      <div class="slide-badge">📊 Topic 03 • Section 3.4</div>
+      <h2 class="slide-title">Factor Plots & <code>sns.catplot()</code></h2>
+      <p class="slide-subtitle">
+        <strong>Definition:</strong> Factor plots (now called <code>catplot</code> in modern Seaborn) are useful for viewing the
+        <em>distribution of a parameter within bins defined by any other parameter</em>.
+        Time series can also be plotted with <code>sns.catplot()</code> using bar estimators.
+        Uses <strong>Tips dataset</strong> — <em><a href="index.html">see Datasets reference</a>.</em>
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">📖 catplot — Subtypes & Definitions</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>catplot (Factor Plot):</strong> A figure-level interface for drawing categorical plots — combines FacetGrid + individual plot types.</li>
+            <li><code>kind='box'</code> — Box plot showing Q1, median, Q3, IQR, outliers.</li>
+            <li><code>kind='violin'</code> — Violin plot combining KDE density with box plot.</li>
+            <li><code>kind='bar'</code> — Bar chart with confidence interval (mean ± CI95).</li>
+            <li><code>kind='strip'</code> — Categorical scatter (like jitter plot).</li>
+            <li><code>kind='point'</code> — Point estimates with connecting lines across categories.</li>
+            <li><code>col='time'</code> — Facet by time: Lunch vs Dinner panels side-by-side.</li>
+          </ul>
+          <div class="code-container" style="margin-top:1rem;">
+            <div class="code-header">
+              <span class="code-lang-badge">catplot Code</span>
+              <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">tips = sns.load_dataset("tips")
+
+# Factor plot: tip distributions by day
+# faceted by meal time
+sns.catplot(x="day", y="tip",
+            hue="smoker", col="time",
+            data=tips, kind="violin",
+            split=True, height=4, aspect=0.9)
+plt.show()</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📊 Bar Plots (Time Series) — <code>sns.barplot()</code></h3>
+          <p style="color:var(--text-muted); line-height:1.8; margin-top:0.75rem; font-size:0.94rem;">
+            <strong>Definition:</strong> Seaborn bar plots show <em>point estimates and confidence intervals</em> as rectangular bars.
+            For time series data, <code>sns.catplot(kind='bar')</code> visualizes aggregated statistics across categorical time buckets.
+          </p>
+          <img src="assets/images/seaborn_catplot.png" alt="Seaborn Catplot" style="width:100%; border-radius:var(--radius-md); margin-top:1rem; border:1px solid var(--border-light);" />
+          <div style="margin-top:1rem; padding:0.75rem; background:var(--bg-secondary); border-radius:var(--radius-sm); font-size:0.875rem;">
+            <strong>Legacy → Modern API:</strong><br>
+            <code>sns.factorplot()</code> (deprecated) → <code>sns.catplot()</code> (modern)
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Marketing campaign conversion comparisons across customer age tiers and promotion channels with 95% confidence intervals.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Digital marketing analytics, clinical trial drug efficacy comparisons, and university academic grade distribution reports.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- SLIDE 7: Heatmaps -->
+    <section class="slide-section" id="slide-7">
+      <div class="slide-badge">📊 Topic 03 • Section 3.5</div>
+      <h2 class="slide-title">2D Heatmaps — <code>sns.heatmap()</code></h2>
+      <p class="slide-subtitle">
+        <strong>Definition:</strong> <code>sns.heatmap()</code> displays rectangular <em>color-encoded matrices</em>, ideal for time series pivot tables.
+        Colors encode numeric values — perfect for visualizing correlation matrices or monthly airline passenger growth.
+        Uses <strong>Flights dataset</strong> (144 rows → pivoted 12×12 matrix) — <em><a href="index.html">see Datasets reference</a>.</em>
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header">
+            <h3 class="card-title">Seaborn Heatmap — Flights Data</h3>
+            <span class="slide-badge">YlGnBu Colormap</span>
+          </div>
+          <img src="assets/images/seaborn_heatmap.png" alt="Seaborn Heatmap" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--border-light); margin-bottom:1rem;" />
+          <a href="3d-plotting.html" class="control-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            🧊 View as 3D Surface Topography ➔
+          </a>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Heatmap — Key Definitions & Parameters</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Heatmap:</strong> A 2D matrix visualization where cell color encodes the numeric value.</li>
+            <li><code>annot=True</code> — Annotates each cell with the numeric value (great for correlation matrices).</li>
+            <li><code>fmt="d"</code> — Format for annotation strings (<code>"d"</code> = integer).</li>
+            <li><code>cmap="YlGnBu"</code> — Color map; Yellow-Green-Blue gradient for sequential data.</li>
+            <li><code>linewidths=0.5</code> — Cell border width for readability.</li>
+            <li><strong>Pivot step:</strong> <code>df.pivot(index='month', columns='year', values='passengers')</code> transforms 144 long-format rows into 12×12 matrix.</li>
+          </ul>
+          <div class="code-container" style="margin-top:1rem;">
+            <div class="code-header">
+              <span class="code-lang-badge">Python Code</span>
+              <div class="code-actions">
+                <button class="btn-code-action btn-copy-code">Copy</button>
+                <button class="btn-code-action btn-colab-code">Colab</button>
+              </div>
+            </div>
+            <div class="code-content">
+              <pre><code class="language-python">flights = sns.load_dataset("flights")
+
+# Pivot: long format → 12×12 month × year matrix
+flights_pv = flights.pivot(
+    index="month",
+    columns="year",
+    values="passengers"
+)
+
+# Annotated Heatmap Matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(flights_pv,
+            annot=True, fmt="d",
+            cmap="YlGnBu",
+            linewidths=0.5)
+plt.title("Monthly Passenger Traffic (1949–1960)")
+plt.show()</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Real estate property valuation analyzing home square footage vs selling price with marginal histogram distributions and Pearson correlation scores.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Real estate algorithmic valuation (Zillow/Redfin), econometric regression diagnostics, and sensor bivariate calibration.</div>
+        </div>
+      </div>
+      <div class="slide-footer-nav">
+        <a href="basemap.html" class="footer-nav-card">◄ Topic 2: Basemap</a>
+        <a href="#slide-8" class="footer-nav-card" onclick="window.goToSlide(7); return false;">Next: Thank You ➔</a>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Seminar Conclusion & Thank You -->
+    <section class="slide-section" id="slide-8">
+      <div class="slide-badge">🎉 Seminar Conclusion</div>
+      <h1 class="slide-title">Thank You!</h1>
+      <p class="slide-subtitle">
+        Thank you for attending the Data Visualization Seminar presented by <strong>Guru Prakash A</strong> (Reg No: 25322011, Class: II MCA).
+      </p>
+
+      <div class="interactive-card" style="max-width:850px; margin: 0 auto; text-align:center; padding: 2.5rem;">
+        <img src="assets/images/cat_teacher_3d_stick.png" alt="3D Cartoon Cat Teacher" style="width: 220px; height: auto; margin-bottom: 1.5rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));" />
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; font-family: var(--font-heading);">
+          "Data Visualization is the Art & Science of Turning Complex Data into Actionable Insights."
+        </h2>
+        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
+          Essential of Data Science • Department of Computer Science & Applications
+        </p>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="reference.html" class="control-btn active" style="text-decoration:none; padding: 12px 28px; font-size: 1rem;">
+            📚 Proceed to Reference & Video Resources ➔
+          </a>
+        </div>
+      </div>
+
+      
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Commercial airline passenger demand seasonality matrix (1949–1960) uncovering high summer travel peaks and multi-year fleet growth.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Airline revenue management, supply chain inventory seasonality tracking, and genomic gene-gene co-expression heatmaps.</div>
+        </div>
+      </div>
+      <div class="slide-footer-nav" style="margin-top: 2.5rem;">
+        <a href="#slide-7" class="footer-nav-card" onclick="window.goToSlide(6); return false;">◄ Prev: Heatmaps</a>
+        <a href="reference.html" class="footer-nav-card">Reference & Downloads ➔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="slide-controls-dock">
+    <button class="slide-btn slide-btn-prev">◄ Prev</button>
+    <div class="slide-indicator">Slide 01 / 07</div>
+    <div class="slide-dots"></div>
+    <button class="slide-btn slide-btn-next">Next ►</button>
+  </div>
+
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop">
+    <div class="cmd-palette-modal">
+      <div class="cmd-input-box">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="cmdInput" placeholder="Search slides, topics, datasets..." />
+      </div>
+      <ul class="cmd-results-list" id="cmdResultsList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

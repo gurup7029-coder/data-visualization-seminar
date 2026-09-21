@@ -1,0 +1,16 @@
+# Scratch & temporary audio/video files
+sample_audio.wav
+WhatsApp Video*
+*TEMP_MPY*
+test_intro.mp3
+test_slide.png
+video_assets/
+
+# Python cache & temp scripts
+__pycache__/
+*.pyc
+cleanup_realworld_boxes.py
+
+# System files
+.DS_Store
+Thumbs.db

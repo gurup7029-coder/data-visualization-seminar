@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Seminar Presentation (PPT) | Data Visualization</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .ppt-page-container {
+      max-width: 900px;
+      margin: 100px auto 40px;
+      padding: 0 1.5rem;
+    }
+    .ppt-card {
+      background: white;
+      border-radius: 24px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-xl);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .ppt-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ppt-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3);
+      flex-shrink: 0;
+    }
+    .ppt-features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin: 1rem 0;
+    }
+    .ppt-feature-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+    .ppt-feature-title {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ppt-feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .btn-download-ppt {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: white;
+      padding: 16px 32px;
+      border-radius: var(--radius-full);
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
+      align-self: flex-start;
+    }
+    .btn-download-ppt:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.45);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge" style="background: linear-gradient(135deg, #d97706, #b45309);">PPT</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link active">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="index.html" class="slide-btn">◄ Back to Slides</a>
+    </div>
+  </nav>
+
+  <main class="ppt-page-container">
+    <div class="ppt-card">
+      <div class="ppt-header">
+        <div class="ppt-icon">P</div>
+        <div>
+          <div class="slide-badge" style="background: rgba(217,119,6,0.1); color: #d97706;">Microsoft PowerPoint • 36 Slides</div>
+          <h1 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--text-main); margin: 6px 0 0;">
+            Data Visualization Seminar PPT
+          </h1>
+        </div>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin: 0;">
+        Official seminar slide deck presented by <strong>Guru Prakash A</strong> (Reg No: 25322011, II MCA), Department of Computer Science and Applications. Fully formatted with 16:9 widescreen layout, Python syntax-highlighted code blocks, Colab outputs, dataset guides, and QR code integration.
+      </p>
+
+      <div class="ppt-features-grid">
+        <div class="ppt-feature-box">
+          <div class="ppt-feature-title">📊 36 Presentation Slides</div>
+          <div class="ppt-feature-desc">Covers 3D plotting, Basemap map projections, Seaborn statistical plots, datasets & references.</div>
+        </div>
+        <div class="ppt-feature-box">
+          <div class="ppt-feature-title">💻 Real Output Graphics</div>
+          <div class="ppt-feature-desc">Includes high-resolution figures from actual execution in Google Colab.</div>
+        </div>
+        <div class="ppt-feature-box">
+          <div class="ppt-feature-title">📱 Embedded QR Codes</div>
+          <div class="ppt-feature-desc">Slide 35 features live scannable QR codes for video streams and online slide access.</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="Data_Visualization_Seminar_Enhanced.pptx" download="Data_Visualization_Seminar_GuruPrakash.pptx" class="btn-download-ppt">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Presentation (.pptx)</span>
+        </a>
+        <a href="index.html" class="slide-btn" style="padding: 14px 24px; font-weight: 700;">
+          <span>Explore Interactive Slide Deck ➔</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

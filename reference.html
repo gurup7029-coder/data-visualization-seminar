@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference & Cheat Sheet | Seminar Presentation</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  
+  <script src="assets/js/plotly-2.27.0.min.js"></script>
+  <script src="assets/js/d3.v7.min.js"></script>
+  <script src="assets/js/prism.min.js"></script>
+  <link rel="stylesheet" href="assets/css/prism-tomorrow.min.css">
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link active">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container">
+
+    <!-- SLIDE 1: Download Resources & Notebook -->
+    <section class="slide-section active" id="slide-1">
+      <div class="slide-badge">📚 Reference • Resources</div>
+      <h1 class="slide-title">Seminar Notebook & Resources</h1>
+      <p class="slide-subtitle">
+        Download the original Google Colab notebook containing all executable code cells.
+      </p>
+
+      <div class="interactive-card" style="max-width:700px; margin:0 auto; text-align:center;">
+        <div style="font-size:3rem; margin-bottom:1rem;">📓</div>
+        <h3 class="card-title" style="font-size:1.6rem;">Data_Visualization_Seminar.ipynb</h3>
+        <p style="color:var(--text-muted); margin: 0.75rem 0 1.5rem;">
+          Includes full Python scripts, Matplotlib figure outputs, Basemap maps, and Seaborn statistical plots.
+        </p>
+        <a href="Data_Visualization_Seminar.ipynb" download class="control-btn active" style="text-decoration:none; padding:12px 28px; font-size:1rem; display:inline-flex; align-items:center; gap:8px;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download Jupyter Notebook (.ipynb)
+        </a>
+      </div>
+
+      <!-- Public Presentation Resources & QR Codes Section -->
+      <div style="margin-top: 2rem;">
+        <h2 style="font-size: 1.8rem; font-weight: 700; color: var(--text-heading); text-align: center; margin-bottom: 0.5rem;">
+          📱 Scan QR Codes to Access Videos & Presentation PPT
+        </h2>
+        <p style="color: var(--text-muted); text-align: center; margin-bottom: 2rem;">
+          Scan with your smartphone camera to stream videos or download the complete seminar PowerPoint deck!
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto;">
+          <!-- 1. Tanglish Video QR Code -->
+          <div class="interactive-card" style="text-align: center; padding: 1.25rem;">
+            <img src="assets/images/qr_tanglish_video.png" alt="Cartoon Tanglish Video QR Code" style="width: 100%; max-width: 240px; border-radius: 12px; box-shadow: var(--shadow-md);" />
+            <h3 style="margin-top: 1rem; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">Cartoon Tanglish Video</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
+              Full presentation video with fluent Tanglish audio narration & cartoon avatar.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="video-tanglish.html" class="control-btn active" style="text-decoration:none; padding: 8px 14px; font-size: 0.85rem; justify-content: center;">
+                ▶️ Watch Video Player
+              </a>
+              <a href="Data_Visualization_Seminar_Tanglish.mp4" download class="control-btn" style="text-decoration:none; padding: 6px 12px; font-size: 0.8rem; justify-content: center;">
+                ⬇️ Direct MP4 File
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. 3D Cartoon English Video QR Code -->
+          <div class="interactive-card" style="text-align: center; padding: 1.25rem;">
+            <img src="assets/images/qr_english_video.png" alt="3D Cartoon English Video QR Code" style="width: 100%; max-width: 240px; border-radius: 12px; box-shadow: var(--shadow-md);" />
+            <h3 style="margin-top: 1rem; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">3D Cartoon English Video</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
+              Full 7-minute HD presentation narrated by 3D Pixar Cat Teacher with pointer stick.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="video-english.html" class="control-btn active" style="text-decoration:none; padding: 8px 14px; font-size: 0.85rem; justify-content: center;">
+                ▶️ Watch Video Player
+              </a>
+              <a href="Data_Visualization_Seminar_Presentation.mp4" download class="control-btn" style="text-decoration:none; padding: 6px 12px; font-size: 0.8rem; justify-content: center;">
+                ⬇️ Direct MP4 File
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Interactive Web Presentation QR Code -->
+          <div class="interactive-card" style="text-align: center; padding: 1.25rem;">
+            <img src="assets/images/qr_interactive_deck.png" alt="Interactive Web Presentation QR Code" style="width: 100%; max-width: 240px; border-radius: 12px; box-shadow: var(--shadow-md);" />
+            <h3 style="margin-top: 1rem; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">Interactive Web Presentation</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
+              Open interactive 3D rotatable slide deck on any smartphone or browser.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="index.html" class="control-btn active" style="text-decoration:none; padding: 8px 14px; font-size: 0.85rem; justify-content: center;">
+                🌐 Open Live Web Deck
+              </a>
+              <a href="3d-plotting.html" class="control-btn" style="text-decoration:none; padding: 6px 12px; font-size: 0.8rem; justify-content: center;">
+                🧊 3D Plotting Slides
+              </a>
+            </div>
+          </div>
+
+          <!-- 4. PPT Presentation Download QR Code -->
+          <div class="interactive-card" style="text-align: center; padding: 1.25rem;">
+            <img src="assets/images/qr_ppt_download.png" alt="PowerPoint PPT Download QR Code" style="width: 100%; max-width: 240px; border-radius: 12px; box-shadow: var(--shadow-md);" />
+            <h3 style="margin-top: 1rem; font-size: 1.15rem; font-weight: 700; color: var(--text-heading);">PowerPoint Deck (.pptx)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.4rem 0 1rem;">
+              Download the 36-slide widescreen seminar presentation file directly.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="download-ppt.html" class="control-btn active" style="text-decoration:none; padding: 8px 14px; font-size: 0.85rem; justify-content: center;">
+                📊 PPT Overview Page
+              </a>
+              <a href="Data_Visualization_Seminar_Enhanced.pptx" download class="control-btn" style="text-decoration:none; padding: 6px 12px; font-size: 0.8rem; justify-content: center;">
+                📥 Download .PPTX File
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer-nav" style="margin-top: 3rem;">
+        <a href="seaborn.html" class="footer-nav-card">◄ Topic 3: Seaborn</a>
+        <a href="index.html" class="footer-nav-card">Return to Home ➔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="slide-controls-dock">
+    <button class="slide-btn slide-btn-prev">◄ Prev</button>
+    <div class="slide-indicator">Slide 01 / 01</div>
+    <div class="slide-dots"></div>
+    <button class="slide-btn slide-btn-next">Next ►</button>
+  </div>
+
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop">
+    <div class="cmd-palette-modal">
+      <div class="cmd-input-box">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="cmdInput" placeholder="Search slides, topics, datasets..." />
+      </div>
+      <ul class="cmd-results-list" id="cmdResultsList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

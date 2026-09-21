@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topic 2: Geographic Data with Basemap | Seminar Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/js/plotly-2.27.0.min.js"></script>
+  <script src="assets/js/d3.v7.min.js"></script>
+  <script src="assets/js/prism.min.js"></script>
+  <link rel="stylesheet" href="assets/css/prism-tomorrow.min.css">
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link active">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link">Reference</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container">
+
+    <!-- ============================================================
+         SLIDE 1: Basemap Introduction & Orthographic Globe
+         ============================================================ -->
+    <section class="slide-section active" id="slide-1">
+      <div class="slide-badge">🌍 Topic 02 • Section 2.1</div>
+      <h1 class="slide-title">Geographic Data with Basemap</h1>
+      <p class="slide-subtitle">
+        One common type of visualization in data science is that of <strong>geographic data</strong>. Matplotlib's main tool for this type of visualization is the <strong>Basemap toolkit</strong>, which lives under the <code>mpl_toolkits</code> namespace. It provides a Matplotlib axes that understands <strong>spherical coordinates</strong> and allows us to easily over-plot data on the map.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Orthographic Globe</span>
+            <div class="code-actions">
+              <button class="btn-code-action btn-copy-code">Copy</button>
+            </div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.basemap import Basemap
+
+plt.figure(figsize=(8, 8))
+m = Basemap(projection='ortho',
+            resolution=None,
+            lat_0=50, lon_0=-100)
+m.bluemarble(scale=0.5)</code></pre>
+          </div>
+        </div>
+
+        <div class="interactive-card" style="text-align:center; background: white;">
+          <h3 class="card-title" style="margin-bottom:0.75rem; color:var(--accent-teal);">🖼️ Orthographic Globe Output</h3>
+          <img src="assets/images/basemap_ortho.png" alt="Orthographic Globe Output" style="width:100%; max-height: 380px; object-fit: contain; border-radius:12px; border:1px solid var(--border-light);" />
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> NASA Earth Observatory Blue Marble satellite composites visualizing continental vegetation and cloud cover patterns.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Space agency planetary monitoring (NASA/ESA), international climate tracking, and aerospace mission orbital path visualizers.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 2: Map with Lat/Lon Grid Lines (etopo/shaded relief)
+         ============================================================ -->
+    <section class="slide-section" id="slide-2">
+      <div class="slide-badge">🌍 Topic 02 • Section 2.2</div>
+      <h2 class="slide-title">Map Backgrounds & Grid Lines</h2>
+      <p class="slide-subtitle">
+        We'll use an <strong>etopo</strong> image (which shows topographical features both on land and under the ocean) as the map background. The <code>draw_map()</code> helper draws shaded relief with parallels and meridians.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — draw_map helper</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">from itertools import chain
+
+fig = plt.figure(figsize=(8, 8))
+m = Basemap(projection='lcc', resolution=None,
+            width=8E6, height=8E6,
+            lat_0=45, lon_0=-100)
+m.etopo(scale=0.5, alpha=0.5)
+
+def draw_map(m, scale=0.2):
+    m.shadedrelief(scale=scale)
+    lats = m.drawparallels(np.linspace(-90, 90, 13))
+    lons = m.drawmeridians(np.linspace(-180, 180, 13))
+    lat_lines = chain(*(tup[1][0] for tup in lats.items()))
+    lon_lines = chain(*(tup[1][0] for tup in lons.items()))
+    all_lines = chain(lat_lines, lon_lines)
+    for line in all_lines:
+        line.set(linestyle='-', alpha=0.3, color='r')</code></pre>
+          </div>
+        </div>
+
+        <div class="interactive-card" style="text-align:center; background: white;">
+          <h3 class="card-title" style="margin-bottom:0.75rem; color:var(--accent-teal);">🖼️ Shaded Relief with Grid Lines</h3>
+          <img src="assets/images/basemap_shaded_relief.png" alt="Shaded Relief Map" style="width:100%; max-height: 380px; object-fit: contain; border-radius:12px; border:1px solid var(--border-light);" />
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Nautical navigation charts displaying seafloor bathymetry trenches and global latitude/longitude grid intersections.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> International maritime shipping (IMO), oceanographic research vessels, and submarine cable route surveys.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 3: Cylindrical Projections
+         ============================================================ -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-badge">🌍 Topic 02 • Cylindrical</div>
+      <h2 class="slide-title">Cylindrical Projections</h2>
+      <p class="slide-subtitle">
+        The simplest of map projections are <strong>cylindrical projections</strong>, in which lines of constant latitude and longitude are mapped to horizontal and vertical lines, respectively. This type of mapping represents equatorial regions quite well, but results in <em>extreme distortions near the poles</em>.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Cylindrical Projection — Key Points</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Plate Carrée:</strong> <code>projection='cyl'</code> — simplest cylindrical projection with equidistant latitude lines.</li>
+            <li><strong>Mercator:</strong> <code>projection='merc'</code> — preserves angles (conformal) but distorts area near poles.</li>
+            <li><strong>Cylindrical Equal-Area:</strong> <code>projection='cea'</code> — preserves area but distorts shapes.</li>
+            <li>The additional arguments specify <strong>llcrnrlat/lon</strong> (lower-left corner) and <strong>urcrnrlat/lon</strong> (upper-right corner) in degrees.</li>
+          </ul>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Cylindrical</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">fig = plt.figure(figsize=(8, 6), edgecolor='w')
+m = Basemap(projection='cyl', resolution=None,
+            llcrnrlat=-90, urcrnrlat=90,
+            llcrnrlon=-180, urcrnrlon=180)
+draw_map(m)</code></pre>
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Web mapping tiles (Web Mercator) powering Google Maps, OpenStreetMap, and equatorial marine charts.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Urban ride-sharing logistics (Uber, Ola), commercial fleet telematics, and equatorial forestry surveys.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 4: Pseudo-cylindrical (Mollweide)
+         ============================================================ -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-badge">🌍 Topic 02 • Pseudo-Cylindrical</div>
+      <h2 class="slide-title">Pseudo-Cylindrical Projections</h2>
+      <p class="slide-subtitle">
+        Pseudo-cylindrical projections relax the requirement that meridians (lines of constant longitude) remain vertical; this can give better properties near the poles. The <strong>Mollweide projection</strong> is one common example, in which all meridians are <em>elliptical arcs</em>. It is constructed so as to <strong>preserve area</strong> across the map.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Mollweide</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">fig = plt.figure(figsize=(8, 6), edgecolor='w')
+m = Basemap(projection='moll', resolution=None,
+            lat_0=0, lon_0=0)
+draw_map(m)</code></pre>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Pseudo-Cylindrical — Key Points</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Mollweide:</strong> <code>projection='moll'</code> — equal-area projection; preserves area but distorts shape near poles.</li>
+            <li><strong>Sinusoidal:</strong> <code>projection='sinu'</code> — another equal-area pseudo-cylindrical projection.</li>
+            <li><strong>Robinson:</strong> <code>projection='robin'</code> — compromise projection balancing area and shape distortion.</li>
+            <li>Extra arguments: <code>lat_0</code> (central latitude) and <code>lon_0</code> (central longitude) for the desired map.</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> IPCC global climate change reports plotting worldwide greenhouse gas emissions on equal-area projection surfaces.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> United Nations climate studies, global biodiversity conservation mapping, and world population density choropleth charts.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 5: Perspective (Orthographic)
+         ============================================================ -->
+    <section class="slide-section" id="slide-5">
+      <div class="slide-badge">🌍 Topic 02 • Perspective</div>
+      <h2 class="slide-title">Perspective Projections</h2>
+      <p class="slide-subtitle">
+        Perspective projections are constructed using a particular choice of <strong>perspective point</strong>, similar to if you photographed the Earth from a particular point in space. One common example is the <strong>orthographic projection</strong> (<code>projection='ortho'</code>), which shows one side of the globe as seen from a viewer at a very long distance. Thus, it can show <em>only half the globe</em> at a time.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Perspective — Key Points</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Orthographic:</strong> <code>projection='ortho'</code> — view from infinite distance; shows half the globe at a time.</li>
+            <li><strong>Gnomonic:</strong> <code>projection='gnom'</code> — projects from the center of the Earth; great circles appear as straight lines.</li>
+            <li><strong>Stereographic:</strong> <code>projection='stere'</code> — conformal projection useful for small portions of the map.</li>
+            <li>These are often the <strong>most useful for showing small portions of the map</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Orthographic</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">fig = plt.figure(figsize=(8, 8))
+m = Basemap(projection='ortho', resolution=None,
+            lat_0=50, lon_0=0)
+draw_map(m)</code></pre>
+          </div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Geostationary meteorological satellites (GOES/Meteosat) transmitting hemispheric real-time cyclone storm views.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> National weather forecast broadcasts, defense surveillance command centers, and space probe tracking.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 6: Conic (Lambert Conformal)
+         ============================================================ -->
+    <section class="slide-section" id="slide-6">
+      <div class="slide-badge">🌍 Topic 02 • Conic</div>
+      <h2 class="slide-title">Conic Projections</h2>
+      <p class="slide-subtitle">
+        A conic projection projects the map onto a single cone, which is then unrolled. This can lead to very good local properties, but regions far from the focus point of the cone may become very distorted. One example is the <strong>Lambert conformal conic projection</strong> (<code>projection='lcc'</code>), which projects the map onto a cone with two <strong>standard parallels</strong> (<code>lat_1</code> and <code>lat_2</code>).
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Lambert Conformal Conic</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python">fig = plt.figure(figsize=(8, 8))
+m = Basemap(projection='lcc', resolution=None,
+            lon_0=0, lat_0=50,
+            lat_1=45, lat_2=55,
+            width=1.6E7, height=1.2E7)
+draw_map(m)</code></pre>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Conic — Key Points</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><strong>Lambert Conformal:</strong> <code>projection='lcc'</code> — preserves angles; scale accurate near standard parallels.</li>
+            <li><strong>Equidistant Conic:</strong> <code>projection='eqdc'</code> — preserves distance along meridians.</li>
+            <li><strong>Albers Equal-Area:</strong> <code>projection='aea'</code> — preserves area across the map.</li>
+            <li><code>lat_1, lat_2</code> specify the two standard parallels where scale is most accurate.</li>
+            <li><code>width, height</code> specify the map extent in projected meters.</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Aeronautical VFR navigation sectional charts for mid-latitude transcontinental flights across continents.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Civil Aviation Authorities (FAA/DGCA), national weather radar composite maps, and regional geological surveys.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 7: Drawing a Map Background — Functions Reference
+         ============================================================ -->
+    <section class="slide-section" id="slide-7">
+      <div class="slide-badge">🌍 Topic 02 • Map Background</div>
+      <h2 class="slide-title">Drawing a Map Background</h2>
+      <p class="slide-subtitle">
+        The Basemap package contains a range of useful functions for drawing borders of <strong>physical features</strong> like continents, oceans, lakes, and rivers, as well as <strong>political boundaries</strong> such as countries and US states.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <h3 class="card-title">🗺️ Physical Boundaries & Bodies of Water</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><code>drawcoastlines()</code> — Draw continental coast lines</li>
+            <li><code>drawlsmask()</code> — Draw a mask between land and sea</li>
+            <li><code>drawmapboundary()</code> — Draw map boundary, fill color for oceans</li>
+            <li><code>drawrivers()</code> — Draw rivers on the map</li>
+            <li><code>fillcontinents()</code> — Fill continents with a given color</li>
+          </ul>
+
+          <h3 class="card-title" style="margin-top:1.5rem;">🏛️ Political Boundaries</h3>
+          <ul style="margin-left:1.25rem; margin-top:0.75rem; color:var(--text-muted); line-height:1.9;">
+            <li><code>drawcountries()</code> — Draw country boundaries</li>
+            <li><code>drawstates()</code> — Draw US state boundaries</li>
+            <li><code>drawcounties()</code> — Draw US county boundaries</li>
+          </ul>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📐 Map Features</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><code>drawgreatcircle()</code> — Draw a great circle between two points</li>
+            <li><code>drawparallels()</code> — Draw lines of constant latitude</li>
+            <li><code>drawmeridians()</code> — Draw lines of constant longitude</li>
+            <li><code>drawmapscale()</code> — Draw a linear scale on the map</li>
+          </ul>
+
+          <h3 class="card-title" style="margin-top:1.5rem;">🌐 Whole-Globe Images</h3>
+          <ul style="margin-left:1.25rem; margin-top:0.75rem; color:var(--text-muted); line-height:1.9;">
+            <li><code>bluemarble()</code> — Project NASA's blue marble image</li>
+            <li><code>shadedrelief()</code> — Project a shaded relief image</li>
+            <li><code>etopo()</code> — Draw an etopo relief image</li>
+            <li><code>warpimage()</code> — Project a user-provided image</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Disaster relief maps layering river flood inundation boundaries on top of county and municipal administrative borders.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Emergency management agencies (NDMA/FEMA), coastal zone municipal planning, and international boundary treaty mapping.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 8: Plotting Data on Maps (Interactive Globe + Cities)
+         ============================================================ -->
+    <section class="slide-section" id="slide-8">
+      <div class="slide-badge">🌍 Topic 02 • Data Overlay</div>
+      <h2 class="slide-title">Plotting Data on Maps</h2>
+      <p class="slide-subtitle">
+        The Basemap toolkit provides the ability to <strong>over-plot a variety of data onto a map background</strong>. There are many map-specific functions available as methods of the Basemap instance.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="interactive-card">
+          <div class="card-header">
+            <h3 class="card-title">🖱️ Interactive World Map — Projection Switcher</h3>
+          </div>
+          <div class="controls-panel">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button class="proj-tab-btn active control-btn" data-proj="ortho">🌐 Orthographic</button>
+              <button class="proj-tab-btn control-btn" data-proj="moll">🗺️ Mollweide</button>
+              <button class="proj-tab-btn control-btn" data-proj="cyl">📏 Cylindrical</button>
+            </div>
+          </div>
+          <div id="basemapD3Chart" style="min-height:380px; width:100%;"></div>
+        </div>
+
+        <div class="interactive-card">
+          <h3 class="card-title">📖 Map-Specific Plot Methods</h3>
+          <ul style="margin-left:1.25rem; margin-top:1rem; color:var(--text-muted); line-height:1.9;">
+            <li><code>contour()/contourf()</code> — Draw contour lines or filled contours</li>
+            <li><code>imshow()</code> — Draw an image</li>
+            <li><code>pcolor()/pcolormesh()</code> — Pseudocolor plot for irregular/regular meshes</li>
+            <li><code>plot()</code> — Draw lines and/or markers</li>
+            <li><code>scatter()</code> — Draw points with markers</li>
+            <li><code>quiver()</code> — Draw vectors</li>
+            <li><code>barbs()</code> — Draw wind barbs</li>
+            <li><code>drawgreatcircle()</code> — Draw a great circle</li>
+          </ul>
+
+          <div id="worldCitiesMapChart" style="min-height:280px; width:100%; margin-top:1rem;"></div>
+        </div>
+      </div>
+    
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Overlaying live atmospheric hurricane wind vectors (quivers) and temperature isobars over geographic map layers.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> National hurricane centers (NOAA/IMD), commercial airline flight dispatch, and oceanic current energy harvesting.</div>
+        </div>
+      </div>
+      </section>
+
+    <!-- ============================================================
+         SLIDE 9: Great Circle Arcs
+         ============================================================ -->
+    <section class="slide-section" id="slide-9">
+      <div class="slide-badge">🌍 Topic 02 • Great Circles</div>
+      <h2 class="slide-title">Great Circle Flight Arcs</h2>
+      <p class="slide-subtitle">
+        <code>m.drawgreatcircle()</code> draws the shortest path between two points on the Earth's surface — the <strong>great circle arc</strong>. This is how airlines plot flight routes on flat maps.
+      </p>
+
+      <div class="card-grid-2col">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="code-lang-badge">Python Code — Great Circle Flight Arcs</span>
+            <div class="code-actions"><button class="btn-code-action btn-copy-code">Copy</button></div>
+          </div>
+          <div class="code-content">
+            <pre><code class="language-python"># New York (40.71, -74.00) -> London (51.50, -0.12)
+m.drawgreatcircle(-74.00, 40.71, -0.12, 51.50,
+                  linewidth=2, color='red')
+
+# Tokyo (35.67, 139.65) -> San Francisco (37.77, -122.41)
+m.drawgreatcircle(139.65, 35.67, -122.41, 37.77,
+                  linewidth=2, color='gold')</code></pre>
+          </div>
+        </div>
+
+        <div class="interactive-card" style="text-align:center; background: white;">
+          <h3 class="card-title" style="margin-bottom:0.75rem; color:var(--accent-teal);">🖼️ Great Circle Map Output</h3>
+          <img src="assets/images/basemap_great_circle.png" alt="Great Circle Flight Arcs" style="width:100%; max-height: 380px; object-fit: contain; border-radius:12px; border:1px solid var(--border-light);" />
+        </div>
+      </div>
+
+      <div class="interactive-card" style="margin-top:1.5rem;">
+        <h3 class="card-title">⚖️ Basemap vs Cartopy — Key Differences</h3>
+        <ul style="margin-left:1.25rem; margin-top:0.75rem; color:var(--text-muted); line-height:1.9;">
+          <li><strong>Basemap:</strong> Transforms data points manually before plotting with Matplotlib functions.</li>
+          <li><strong>Cartopy:</strong> Uses standard Matplotlib <code>transform=ccrs.PlateCarree()</code> arguments directly inside <code>ax.plot()</code>.</li>
+          <li><strong>Status:</strong> Basemap is <em>deprecated</em> — Cartopy is the recommended successor for new projects.</li>
+        </ul>
+      </div>
+
+      
+      <div class="topic-realworld-box">
+        <div class="realworld-box-header"><span>💡 Real-World Example & Industry Application</span></div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example"><strong>🌐 Real-World Example:</strong> Intercontinental flight routes (e.g. New York to London) curving northward to follow shortest spherical Great Circle geodesics.</div>
+          <div class="realworld-item usage"><strong>🏢 Where It Is Used:</strong> Commercial airline fuel optimization flight computers, international avionics routing, and long-range ballistic trajectory plotting.</div>
+        </div>
+      </div>
+      <div class="slide-footer-nav" style="margin-top: 2rem;">
+        <a href="3d-plotting.html" class="footer-nav-card">◄ Topic 1: 3D Plotting</a>
+        <a href="seaborn.html" class="footer-nav-card" style="background: var(--accent-primary); color: white; border-color: var(--accent-primary);">Topic 3: Seaborn ➔</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Presentation Dock -->
+  <div class="slide-controls-dock">
+    <button class="slide-btn slide-btn-prev">◄ Prev</button>
+    <div class="slide-indicator">Slide 01 / 09</div>
+    <div class="slide-dots"></div>
+    <button class="slide-btn slide-btn-next">Next ►</button>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop">
+    <div class="cmd-palette-modal">
+      <div class="cmd-input-box">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="cmdInput" placeholder="Search slides, topics, datasets..." />
+      </div>
+      <ul class="cmd-results-list" id="cmdResultsList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
