@@ -29,7 +29,7 @@ function initPageTransitions() {
         overlay.classList.add('active');
         setTimeout(() => {
           window.location.href = href;
-        }, 350);
+        }, 120);
       });
     }
   });
@@ -381,6 +381,9 @@ function initSlideDeckNavigation() {
         slide.style.display = 'flex';
         setTimeout(() => slide.classList.add('active'), 20);
 
+        // Lazy-initialize interactive charts only for the active slide
+        initChartForActiveSlide(slide);
+
         // Trigger Crackers Confetti Blast ONLY on the final Thank You slide
         const titleText = slide.querySelector('.slide-title')?.textContent.toLowerCase() || '';
         const isThankYouSlide = titleText.includes('thank you') || (slide.id === 'slide-8' && window.location.pathname.includes('seaborn'));
@@ -585,18 +588,54 @@ function initCodeBlocks() {
 }
 
 /* --------------------------------------------------------------------------
-   7. INTERACTIVE PLOTLY & D3 CHART ENGINES
+   7. INTERACTIVE PLOTLY & D3 CHART ENGINES (LAZY-INITIALIZED ON SLIDE DEMAND)
    -------------------------------------------------------------------------- */
+const chartInitRegistry = {
+  'helix3dChart': init3DHelixChart,
+  'contour3dChart': initContourChart,
+  'viewInitChart': initViewInitCameraChart,
+  'wireframeSurfaceChart': initWireframeSurfaceChart,
+  'triangulation3dChart': initTriangulationChart,
+  'basemapD3Chart': initBasemapProjections,
+  'worldCitiesMapChart': initWorldCitiesMap,
+  'seabornKdeChart': initSeabornKdeChart,
+};
+
+const initializedChartIds = new Set();
+
+function initChartForActiveSlide(slideElement) {
+  if (!slideElement) return;
+  for (const [id, initFunc] of Object.entries(chartInitRegistry)) {
+    const el = slideElement.querySelector('#' + id);
+    if (el) {
+      if (!initializedChartIds.has(id)) {
+        initializedChartIds.add(id);
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            try {
+              initFunc();
+            } catch (err) {
+              console.warn('Lazy chart init notice for ' + id, err);
+            }
+          }, 30);
+        });
+      } else if (typeof Plotly !== 'undefined') {
+        requestAnimationFrame(() => {
+          try {
+            Plotly.Plots.resize(el);
+          } catch(e) {}
+        });
+      }
+    }
+  }
+}
+
 function initInteractiveCharts() {
-  init3DHelixChart();
-  initContourChart();
-  initViewInitCameraChart();
-  initWireframeSurfaceChart();
-  initTriangulationChart();
   init3DChartActionControls();
-  initBasemapProjections();
-  initWorldCitiesMap();
-  initSeabornKdeChart();
+  const activeSlide = document.querySelector('.slide-section.active') || slideSections[0];
+  if (activeSlide) {
+    initChartForActiveSlide(activeSlide);
+  }
 }
 
 function init3DHelixChart() {
