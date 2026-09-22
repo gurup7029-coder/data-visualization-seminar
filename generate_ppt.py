@@ -1433,30 +1433,43 @@ def build_qr_code_slide(slide, n):
     add_slide_header(slide, "📱 INTERACTIVE RESOURCES", "Interactive Web Demos & Presentation Videos", "Scan QR codes with any smartphone camera for instant mobile access", n, EMERALD_ACCENT)
     
     qrs = [
-        ("qr_tanglish_video.png", "Tamil Video Presentation", "Full 7-min HD 3D Presentation with Audio"),
-        ("qr_english_video.png", "English Video Presentation", "Full 7-min HD 3D Presentation with Audio"),
-        ("qr_interactive_deck.png", "Interactive 3D Web Deck", "Live WebGL 3D Rotation on Mobile Browser"),
-        ("qr_ppt_download.png", "Download Seminar PPTX", "Official High-Resolution PowerPoint Presentation")
+        ("qr_ppt_download.png", "Download Seminar PPTX", "Official 36-Slide PPTX Presentation", "download-ppt.html", AMBER_ACCENT),
+        ("qr_english_video.png", "English Presentation", "Full 7-min HD 3D Video Narration", "video-english.html", BLUE_ACCENT),
+        ("qr_tanglish_video.png", "Tanglish Presentation", "Full 3D Presentation in Tamil + English", "video-tanglish.html", VIOLET_PRIMARY),
+        ("qr_interactive_deck.png", "Interactive 3D Web Deck", "Live WebGL 3D Rotation on Mobile", "index.html", CYAN_PRIMARY),
     ]
     
-    for i, (filename, title, desc) in enumerate(qrs):
+    for i, (filename, title, desc, path_slug, accent_col) in enumerate(qrs):
         x = Inches(0.55 + i * 3.1)
         y = Inches(1.6)
         w = Inches(2.95)
         h = Inches(5.3)
         
         card = add_rounded_card(slide, x, y, w, h, fill=CARD_BG, line_color=CARD_BORDER)
-        add_rect(slide, x, y, w, Inches(0.06), fill=EMERALD_ACCENT)
+        add_rect(slide, x, y, w, Inches(0.06), fill=accent_col)
         
-        # QR Image
+        # Pure white container tile for the QR code for maximum contrast and instant camera lock
+        qr_tile_size = Inches(2.45)
+        qr_x = x + Inches(0.25)
+        qr_y = y + Inches(0.25)
+        add_rounded_card(slide, qr_x, qr_y, qr_tile_size, qr_tile_size, fill=RGBColor(0xFF, 0xFF, 0xFF), line_color=RGBColor(0xE2, 0xE8, 0xF0))
+        
+        # QR Image inside the white tile with comfortable quiet zone
         img_p = img(filename)
         if img_p:
-            add_image_fit(slide, img_p, x + Inches(0.2), y + Inches(0.3), Inches(2.55), Inches(3.5))
+            add_image_fit(slide, img_p, qr_x + Inches(0.12), qr_y + Inches(0.12), qr_tile_size - Inches(0.24), qr_tile_size - Inches(0.24))
             
-        add_text_box(slide, title, x + Inches(0.1), y + Inches(4.0), Inches(2.75), Inches(0.35),
-                     size=12, bold=True, color=TEXT_WHITE, align=PP_ALIGN.CENTER)
-        add_text_box(slide, desc, x + Inches(0.1), y + Inches(4.4), Inches(2.75), Inches(0.65),
-                     size=9, color=TEXT_MUTED, align=PP_ALIGN.CENTER)
+        add_text_box(slide, title, x + Inches(0.1), y + Inches(2.85), Inches(2.75), Inches(0.38),
+                     size=11.5, bold=True, color=TEXT_WHITE, align=PP_ALIGN.CENTER)
+        add_text_box(slide, desc, x + Inches(0.1), y + Inches(3.25), Inches(2.75), Inches(0.55),
+                     size=8.8, color=TEXT_MUTED, align=PP_ALIGN.CENTER)
+                     
+        # Scan prompt pill
+        add_rounded_card(slide, x + Inches(0.2), y + Inches(3.95), Inches(2.55), Inches(1.05), fill=RGBColor(0x0C, 0x14, 0x24), line_color=CARD_BORDER)
+        add_text_box(slide, "📷 SCAN WITH PHONE", x + Inches(0.2), y + Inches(4.05), Inches(2.55), Inches(0.28),
+                     size=9, bold=True, color=accent_col, align=PP_ALIGN.CENTER)
+        add_text_box(slide, f"gurup7029-coder.github.io\n/.../{path_slug}", x + Inches(0.2), y + Inches(4.35), Inches(2.55), Inches(0.55),
+                     size=7.5, color=TEXT_MUTED, align=PP_ALIGN.CENTER)
 
 def build_final(slide, n):
     """Slide 36: Thank You / Conclusion."""

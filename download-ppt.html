@@ -1,98 +1,235 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Seminar Presentation (PPT) | Data Visualization</title>
+  <title>Download Seminar Presentation (PPTX) | Data Visualization Seminar</title>
+  <meta name="description" content="Download the official 36-slide PowerPoint presentation (.pptx) for the Data Visualization Seminar in Essential of Data Science. Presented by Guru Prakash A (25322011), II MCA.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .ppt-page-container {
-      max-width: 900px;
-      margin: 100px auto 40px;
-      padding: 0 1.5rem;
+    :root {
+      --card-glass: rgba(15, 23, 42, 0.88);
+      --border-accent: rgba(245, 158, 11, 0.35);
+      --glow-amber: rgba(217, 119, 6, 0.35);
     }
-    .ppt-card {
-      background: white;
-      border-radius: 24px;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-xl);
-      padding: 3rem;
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+    }
+    .ppt-page-container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 85px auto 40px;
+      padding: 0 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .ppt-hero-card {
+      background: var(--card-glass);
+      border-radius: 24px;
+      border: 1px solid var(--border-accent);
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), 0 0 30px var(--glow-amber);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
     }
     .ppt-header {
       display: flex;
       align-items: center;
       gap: 1.5rem;
     }
-    .ppt-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
+    .ppt-icon-badge {
+      width: 76px;
+      height: 76px;
+      border-radius: 20px;
       background: linear-gradient(135deg, #d97706, #b45309);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.4);
       flex-shrink: 0;
+    }
+    .ppt-title-group h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: #ffffff;
+      margin: 6px 0 0;
+      line-height: 1.2;
+    }
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .badge-amber {
+      background: rgba(217, 119, 6, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .badge-blue {
+      background: rgba(37, 99, 235, 0.18);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .badge-emerald {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .ppt-desc {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .ppt-desc strong {
+      color: #f8fafc;
     }
     .ppt-features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.25rem;
-      margin: 1rem 0;
     }
     .ppt-feature-box {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 16px;
       padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
     .ppt-feature-title {
       font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 6px;
+      font-size: 1.05rem;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .ppt-feature-desc {
       font-size: 0.9rem;
-      color: var(--text-muted);
+      color: #94a3b8;
       line-height: 1.6;
     }
-    .btn-download-ppt {
+    .download-card-box {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(180, 83, 9, 0.05));
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .download-buttons-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-download-primary {
       background: linear-gradient(135deg, #d97706, #b45309);
       color: white;
-      padding: 16px 32px;
-      border-radius: var(--radius-full);
-      font-size: 1.1rem;
+      padding: 14px 28px;
+      border-radius: 9999px;
       font-weight: 800;
+      font-size: 1.05rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
       transition: all 0.2s ease;
-      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
-      align-self: flex-start;
+      box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
     }
-    .btn-download-ppt:hover {
+    .btn-download-primary:hover {
+      background: linear-gradient(135deg, #b45309, #92400e);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.45);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.55);
+    }
+    .btn-download-secondary {
+      background: rgba(30, 41, 59, 0.7);
+      color: #e2e8f0;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 14px 24px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-download-secondary:hover {
+      background: rgba(51, 65, 85, 0.8);
+      border-color: #38bdf8;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .direct-file-links {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .direct-file-links a {
+      color: #38bdf8;
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      .ppt-page-container {
+        margin: 75px auto 25px;
+        padding: 0 0.75rem;
+      }
+      .ppt-hero-card {
+        padding: 1.5rem;
+      }
+      .ppt-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .download-buttons-row {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-download-primary, .btn-download-secondary {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Top Navigation Bar -->
-  <nav class="navbar">
-    <a href="index.html" class="nav-brand">
+  <nav class="navbar" style="background: rgba(3, 7, 18, 0.88); border-bottom: 1px solid rgba(245, 158, 11, 0.2);">
+    <a href="index.html" class="nav-brand" style="color: #f8fafc;">
       <div class="nav-logo-badge" style="background: linear-gradient(135deg, #d97706, #b45309);">PPT</div>
       <span>Data Viz Seminar</span>
     </a>
@@ -101,52 +238,76 @@
       <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
       <li><a href="basemap.html" class="nav-link">Basemap</a></li>
       <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
-      <li><a href="reference.html" class="nav-link active">Reference</a></li>
+      <li><a href="reference.html" class="nav-link">Resources</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="index.html" class="slide-btn">◄ Back to Slides</a>
+      <a href="index.html" class="slide-btn" style="background: rgba(30, 41, 59, 0.8); color: #f8fafc; border-color: rgba(148, 163, 184, 0.3);">
+        ◄ Back to Slides
+      </a>
     </div>
   </nav>
 
   <main class="ppt-page-container">
-    <div class="ppt-card">
+    <div class="ppt-hero-card">
       <div class="ppt-header">
-        <div class="ppt-icon">P</div>
-        <div>
-          <div class="slide-badge" style="background: rgba(217,119,6,0.1); color: #d97706;">Microsoft PowerPoint • 36 Slides</div>
-          <h1 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--text-main); margin: 6px 0 0;">
-            Data Visualization Seminar PPT
-          </h1>
+        <div class="ppt-icon-badge">P</div>
+        <div class="ppt-title-group">
+          <div class="badge-row">
+            <span class="badge-pill badge-amber">PowerPoint Presentation (.pptx)</span>
+            <span class="badge-pill badge-blue">36 AI Dark-Tech Slides</span>
+            <span class="badge-pill badge-emerald">Widescreen 16:9 • High-Res Graphics</span>
+          </div>
+          <h1>Data Visualization Seminar PPT</h1>
         </div>
       </div>
 
-      <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin: 0;">
-        Official seminar slide deck presented by <strong>Guru Prakash A</strong> (Reg No: 25322011, II MCA), Department of Computer Science and Applications. Fully formatted with 16:9 widescreen layout, Python syntax-highlighted code blocks, Colab outputs, dataset guides, and QR code integration.
+      <p class="ppt-desc">
+        Official master slide deck presented by <strong>Guru Prakash A</strong> (Reg No: 25322011, II MCA), Department of Computer Science and Applications. Fully formatted with 16:9 widescreen layout, Python syntax-highlighted code blocks, Colab outputs, dataset guides, benchmark comparison matrices, and QR code integration.
       </p>
 
       <div class="ppt-features-grid">
         <div class="ppt-feature-box">
-          <div class="ppt-feature-title">📊 36 Presentation Slides</div>
-          <div class="ppt-feature-desc">Covers 3D plotting, Basemap map projections, Seaborn statistical plots, datasets & references.</div>
+          <div class="ppt-feature-title">📊 36 Master Slides</div>
+          <div class="ppt-feature-desc">Complete coverage of 3D spatial geometry, Basemap cartographic projections, and Seaborn statistical graphics.</div>
         </div>
         <div class="ppt-feature-box">
-          <div class="ppt-feature-title">💻 Real Output Graphics</div>
-          <div class="ppt-feature-desc">Includes high-resolution figures from actual execution in Google Colab.</div>
+          <div class="ppt-feature-title">💻 High-Resolution Figures</div>
+          <div class="ppt-feature-desc">All slides include verified Google Colab visualization outputs, hexbin distributions, and 3D surface meshes.</div>
         </div>
         <div class="ppt-feature-box">
-          <div class="ppt-feature-title">📱 Embedded QR Codes</div>
-          <div class="ppt-feature-desc">Slide 35 features live scannable QR codes for video streams and online slide access.</div>
+          <div class="ppt-feature-title">📱 Live Scannable QR Codes</div>
+          <div class="ppt-feature-desc">Slide 35 features live QR codes for instant smartphone access to the video presentations and web deck.</div>
         </div>
       </div>
 
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-        <a href="Data_Visualization_Seminar_Enhanced.pptx" download="Data_Visualization_Seminar_GuruPrakash.pptx" class="btn-download-ppt">
+      <!-- Download Box -->
+      <div class="download-card-box">
+        <div style="font-weight: 700; font-size: 1.1rem; color: #fbbf24; display: flex; align-items: center; gap: 8px;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Download Presentation (.pptx)</span>
-        </a>
-        <a href="index.html" class="slide-btn" style="padding: 14px 24px; font-weight: 700;">
-          <span>Explore Interactive Slide Deck ➔</span>
-        </a>
+          <span>Download Presentation Files Directly</span>
+        </div>
+
+        <div class="download-buttons-row">
+          <a href="Data_Visualization_Seminar_Enhanced.pptx" download="Data_Visualization_Seminar_GuruPrakash.pptx" class="btn-download-primary" id="downloadBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Presentation (.pptx)</span>
+          </a>
+
+          <a href="https://github.com/gurup7029-coder/data-visualization-seminar/raw/main/Data_Visualization_Seminar_Enhanced.pptx" class="btn-download-secondary">
+            <span>📥 GitHub Direct Raw Download</span>
+          </a>
+
+          <a href="index.html" class="btn-download-secondary" style="border-color: rgba(59, 130, 246, 0.4); color: #93c5fd;">
+            <span>🌐 View Slides Online</span>
+          </a>
+        </div>
+
+        <div class="direct-file-links">
+          <span>Alternative Links:</span>
+          <a href="Data_Visualization_Seminar.pptx" download>Standard PPTX File</a> •
+          <a href="video-english.html">English Video Presentation</a> •
+          <a href="video-tanglish.html">Tanglish Video Presentation</a>
+        </div>
       </div>
     </div>
   </main>
