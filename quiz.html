@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seminar Quiz & Assessment | Data Visualization</title>
+  <meta name="description" content="Interactive 40-question seminar quiz with real-time feedback, question lock mechanism, and live scoring. Extracted from Data_Visualization_Seminar_Quiz_QA.pdf.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Dynamic Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-badge">DV</div>
+      <span>Data Viz Seminar</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="3d-plotting.html" class="nav-link">3D Plotting</a></li>
+      <li><a href="basemap.html" class="nav-link">Basemap</a></li>
+      <li><a href="seaborn.html" class="nav-link">Seaborn</a></li>
+      <li><a href="reference.html" class="nav-link">Reference</a></li>
+      <li><a href="quiz.html" class="nav-link active">Quiz 🎯</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" aria-label="Toggle Theme">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="top-progress-bar">
+    <div class="top-progress-fill"></div>
+  </div>
+
+  <main class="presentation-container" style="padding-top: 2rem; padding-bottom: 5rem;">
+
+    <!-- Quiz Header & Scanner Banner Card -->
+    <div style="max-width: 960px; margin: 0 auto 2rem; text-align: center;">
+      <div class="slide-badge" style="background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.3); margin-bottom: 1rem;">
+        📝 SEMINAR ASSESSMENT & KNOWLEDGE SCANNER
+      </div>
+      <h1 class="slide-title" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 800; margin-bottom: 0.75rem;">
+        Data Visualization Quiz Arena
+      </h1>
+      <p class="slide-subtitle" style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 1.5rem;">
+        Complete live quiz containing all <strong>40 questions</strong> directly from <em>Data_Visualization_Seminar_Quiz_QA.pdf</em>. 
+        Select an answer to reveal instant correctness and detailed explanations before unlocking the next question!
+      </p>
+
+      <!-- Smartphone Scanner Launchpad Card -->
+      <div class="quiz-scanner-hero-card">
+        <div style="text-align: left;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 800; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 0.5rem;">
+            <span>📱 Mobile QR Scanner</span>
+            <span style="background: var(--accent-primary); color: white; padding: 2px 8px; border-radius: 999px; font-size: 0.7rem;">Live</span>
+          </div>
+          <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">
+            Scan to Play on Mobile Phone
+          </h3>
+          <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+            Audience members and students can scan the QR code using any smartphone camera or QR reader to instantly launch this quiz on mobile, submit answers, and check their score!
+          </p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="Data_Visualization_Seminar_Quiz_QA.pdf" target="_blank" class="control-btn" style="text-decoration: none; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+              📄 View Original QA PDF
+            </a>
+            <a href="reference.html" class="control-btn active" style="text-decoration: none; padding: 8px 16px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+              📚 Back to Seminar Deck
+            </a>
+          </div>
+        </div>
+
+        <!-- QR Code Display Frame -->
+        <div style="text-align: center;">
+          <div style="background: white; border-radius: 16px; padding: 12px; max-width: 170px; margin: 0 auto; box-shadow: var(--shadow-md); border: 2px solid var(--border-light);">
+            <img src="assets/images/qr_quiz.png" alt="Seminar Quiz Mobile QR Code" style="width: 100%; aspect-ratio: 1/1; display: block; border-radius: 6px;" />
+          </div>
+          <div style="margin-top: 8px; font-size: 0.775rem; font-weight: 700; color: var(--text-muted);">
+            Point camera to scan & play
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standalone Interactive Quiz Arena -->
+    <div id="standaloneQuizContainer"></div>
+
+  </main>
+
+  <!-- Application & Quiz Scripts -->
+  <script src="script.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

@@ -65,6 +65,9 @@ function initCustomCursor() {
   } else if (pagePath.includes('reference')) {
     document.documentElement.style.setProperty('--cursor-color', '#d97706');
     document.documentElement.style.setProperty('--cursor-glow', 'rgba(217, 119, 6, 0.2)');
+  } else if (pagePath.includes('quiz')) {
+    document.documentElement.style.setProperty('--cursor-color', '#10b981');
+    document.documentElement.style.setProperty('--cursor-glow', 'rgba(16, 185, 129, 0.25)');
   } else {
     document.documentElement.style.setProperty('--cursor-color', '#2563eb');
     document.documentElement.style.setProperty('--cursor-glow', 'rgba(37, 99, 235, 0.2)');

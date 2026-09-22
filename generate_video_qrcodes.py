@@ -43,6 +43,14 @@ QR_DATA = [
         "url": f"{PAGES_BASE}/download-ppt.html",
         "filename": "qr_ppt_download.png",
         "fill_color": "#0f172a"
+    },
+    {
+        "id": "qr_quiz",
+        "title": "Interactive Seminar Quiz & QA",
+        "subtitle": "Scan to Test Your Knowledge & View Live Score",
+        "url": f"{PAGES_BASE}/quiz.html",
+        "filename": "qr_quiz.png",
+        "fill_color": "#0f172a"
     }
 ]
 
