@@ -16,10 +16,9 @@ const QUIZ_QUESTIONS = [
       "NumPy",
       "Matplotlib",
       "Pandas",
-      "Seaborn"
+      "Requests"
     ],
-    correctIndex: 1,
-    answerLabel: "B. Matplotlib",
+    correctAnswerText: "Matplotlib",
     explanation: "Matplotlib is the foundational, multi-platform 2D and 3D data plotting library in Python."
   },
   {
@@ -29,12 +28,11 @@ const QUIZ_QUESTIONS = [
     question: "Which plot shows the relationship between two numerical variables?",
     options: [
       "Pie chart",
-      "Scatter plot",
       "Histogram",
+      "Scatter plot",
       "Box plot"
     ],
-    correctIndex: 1,
-    answerLabel: "B. Scatter plot",
+    correctAnswerText: "Scatter plot",
     explanation: "A scatter plot maps individual (x, y) coordinates to reveal correlations and relationships between two continuous variables."
   },
   {
@@ -48,8 +46,7 @@ const QUIZ_QUESTIONS = [
       "Bar plot",
       "Line plot"
     ],
-    correctIndex: 0,
-    answerLabel: "A. Heatmap",
+    correctAnswerText: "Heatmap",
     explanation: "Heatmaps visualize 2D tabular numerical intensity using color gradients, making them ideal for correlation matrices."
   },
   {
@@ -59,12 +56,11 @@ const QUIZ_QUESTIONS = [
     question: "Which plot displays data in three dimensions?",
     options: [
       "2D plot",
-      "3D plot",
       "Pie plot",
-      "Count plot"
+      "Count plot",
+      "3D plot"
     ],
-    correctIndex: 1,
-    answerLabel: "B. 3D plot",
+    correctAnswerText: "3D plot",
     explanation: "3D plots (such as ax.plot3D, ax.scatter3D, ax.contour3D) display data across three spatial axes (X, Y, Z)."
   },
   {
@@ -73,13 +69,12 @@ const QUIZ_QUESTIONS = [
     categoryLabel: "1. Multiple Choice Questions",
     question: "Which Seaborn plot can show the distribution of a numerical variable?",
     options: [
+      "Lmplot",
       "Histogram",
       "Pairplot",
-      "Lmplot",
       "Jointplot"
     ],
-    correctIndex: 0,
-    answerLabel: "A. Histogram",
+    correctAnswerText: "Histogram",
     explanation: "Histograms bin continuous numerical observations to display the underlying frequency distribution."
   },
   {
@@ -88,13 +83,12 @@ const QUIZ_QUESTIONS = [
     categoryLabel: "1. Multiple Choice Questions",
     question: "Which plot helps identify outliers using quartiles?",
     options: [
-      "Box plot",
       "Line plot",
       "Heatmap",
+      "Box plot",
       "Contour plot"
     ],
-    correctIndex: 0,
-    answerLabel: "A. Box plot",
+    correctAnswerText: "Box plot",
     explanation: "Box plots (box-and-whisker) display quartiles, the median, IQR, and mark individual outliers beyond the 1.5 × IQR whiskers."
   },
   {
@@ -103,13 +97,12 @@ const QUIZ_QUESTIONS = [
     categoryLabel: "1. Multiple Choice Questions",
     question: "Which library is designed for statistical data visualization?",
     options: [
-      "Seaborn",
-      "Requests",
       "Flask",
-      "Tkinter"
+      "Tkinter",
+      "Requests",
+      "Seaborn"
     ],
-    correctIndex: 0,
-    answerLabel: "A. Seaborn",
+    correctAnswerText: "Seaborn",
     explanation: "Seaborn is built on Matplotlib and provides high-level APIs specifically tailored for statistical data graphics."
   },
   {
@@ -118,13 +111,12 @@ const QUIZ_QUESTIONS = [
     categoryLabel: "1. Multiple Choice Questions",
     question: "Which route represents a shortest path over a spherical Earth?",
     options: [
-      "Straight line",
       "Great-circle route",
+      "Straight line",
       "Grid line",
       "Contour line"
     ],
-    correctIndex: 1,
-    answerLabel: "B. Great-circle route",
+    correctAnswerText: "Great-circle route",
     explanation: "On a spherical surface like Earth, the geodesic arc of a great circle represents the shortest navigation distance between two points."
   },
 
@@ -138,12 +130,11 @@ const QUIZ_QUESTIONS = [
     question: "Identify the Odd One Out: Which item does not belong with the others?",
     options: [
       "Matplotlib",
+      "NumPy",
       "Seaborn",
-      "Cartopy",
-      "NumPy"
+      "Cartopy"
     ],
-    correctIndex: 3,
-    answerLabel: "D. NumPy",
+    correctAnswerText: "NumPy",
     explanation: "NumPy is a numerical computation library; the others (Matplotlib, Seaborn, Cartopy) are specialized for data and geographic visualization."
   },
   {
@@ -154,11 +145,10 @@ const QUIZ_QUESTIONS = [
     options: [
       "Histogram",
       "KDE",
-      "Rug plot",
-      "Great-circle route"
+      "Great-circle route",
+      "Rug plot"
     ],
-    correctIndex: 3,
-    answerLabel: "D. Great-circle route",
+    correctAnswerText: "Great-circle route",
     explanation: "Great-circle route represents a geographic navigation path on a sphere; the others visualize univariate data distributions."
   },
   {
@@ -167,13 +157,12 @@ const QUIZ_QUESTIONS = [
     categoryLabel: "2. Odd One Out",
     question: "Identify the Odd One Out: Which plot type does not belong with the others?",
     options: [
+      "Heatmap",
       "Box plot",
       "Violin plot",
-      "Strip plot",
-      "Heatmap"
+      "Strip plot"
     ],
-    correctIndex: 3,
-    answerLabel: "D. Heatmap",
+    correctAnswerText: "Heatmap",
     explanation: "Heatmaps visualize 2D tabular matrix correlations; Box plot, Violin plot, and Strip plot display distributions across categories."
   },
   {
@@ -187,8 +176,7 @@ const QUIZ_QUESTIONS = [
       "bar3d",
       "pairplot"
     ],
-    correctIndex: 3,
-    answerLabel: "D. pairplot",
+    correctAnswerText: "pairplot",
     explanation: "pairplot is a Seaborn 2D matrix exploration function; plot3D, scatter3D, and bar3d are Matplotlib 3D plotting functions."
   },
   {
@@ -198,12 +186,11 @@ const QUIZ_QUESTIONS = [
     question: "Identify the Odd One Out: Which term does not belong with the others?",
     options: [
       "Latitude",
+      "Histogram",
       "Longitude",
-      "Map projection",
-      "Histogram"
+      "Map projection"
     ],
-    correctIndex: 3,
-    answerLabel: "D. Histogram",
+    correctAnswerText: "Histogram",
     explanation: "Histogram is a statistical distribution plot; Latitude, Longitude, and Map projection are fundamental geographic cartography concepts."
   },
   {
@@ -214,113 +201,54 @@ const QUIZ_QUESTIONS = [
     options: [
       "Elevation",
       "Azimuth",
-      "Camera view",
-      "KDE"
+      "KDE",
+      "Camera view"
     ],
-    correctIndex: 3,
-    answerLabel: "D. KDE",
+    correctAnswerText: "KDE",
     explanation: "KDE (Kernel Density Estimation) is a statistical smoothing method; Elevation, Azimuth, and Camera view configure 3D camera angles in ax.view_init."
   },
 
   // ==========================================
-  // SECTION 3: MATCH THE FOLLOWING
+  // SECTION 3: MATCH THE FOLLOWING (SINGLE UNIFIED QUESTION)
   // ==========================================
   {
     id: 15,
     category: "match",
     categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of 'Matplotlib'?",
+    question: "Match the items in Column A with their correct corresponding roles in Column B:",
+    matchColumns: {
+      colA: [
+        { num: "1.", text: "Matplotlib" },
+        { num: "2.", text: "Seaborn" },
+        { num: "3.", text: "GeoPandas" },
+        { num: "4.", text: "Heatmap" },
+        { num: "5.", text: "Pairplot" },
+        { num: "6.", text: "Basemap" }
+      ],
+      colB: [
+        { num: "A.", text: "Geographic data" },
+        { num: "B.", text: "Statistical visualization" },
+        { num: "C.", text: "Multiple pairwise relationships" },
+        { num: "D.", text: "Mapping toolkit" },
+        { num: "E.", text: "General plotting" },
+        { num: "F.", text: "Correlation matrix visualization" }
+      ]
+    },
     options: [
-      "General plotting",
-      "Statistical visualization",
-      "Geographic data",
-      "Correlation matrix visualization"
+      "1–B, 2–E, 3–D, 4–A, 5–F, 6–C",
+      "1–E, 2–A, 3–B, 4–C, 5–F, 6–D",
+      "1–E, 2–B, 3–A, 4–F, 5–C, 6–D",
+      "1–D, 2–B, 3–A, 4–E, 5–C, 6–F"
     ],
-    correctIndex: 0,
-    answerLabel: "A. General plotting",
-    explanation: "Matplotlib is Python's standard, general-purpose foundational plotting engine."
-  },
-  {
-    id: 16,
-    category: "match",
-    categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of 'Seaborn'?",
-    options: [
-      "General plotting",
-      "Statistical visualization",
-      "Mapping toolkit",
-      "Multiple pairwise relationships"
-    ],
-    correctIndex: 1,
-    answerLabel: "B. Statistical visualization",
-    explanation: "Seaborn provides high-level abstractions designed specifically for statistical visualization and exploring complex datasets."
-  },
-  {
-    id: 17,
-    category: "match",
-    categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of 'GeoPandas'?",
-    options: [
-      "Geographic data",
-      "Statistical visualization",
-      "Correlation matrix visualization",
-      "General plotting"
-    ],
-    correctIndex: 0,
-    answerLabel: "A. Geographic data",
-    explanation: "GeoPandas extends Pandas dataframes to store, query, and manipulate geometric and geographic spatial data."
-  },
-  {
-    id: 18,
-    category: "match",
-    categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of a 'Heatmap'?",
-    options: [
-      "Mapping toolkit",
-      "Correlation matrix visualization",
-      "General plotting",
-      "Multiple pairwise relationships"
-    ],
-    correctIndex: 1,
-    answerLabel: "B. Correlation matrix visualization",
-    explanation: "Heatmaps map 2D numerical matrices into intuitive color intensities, commonly representing feature correlation matrices."
-  },
-  {
-    id: 19,
-    category: "match",
-    categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of 'Pairplot'?",
-    options: [
-      "Multiple pairwise relationships",
-      "Geographic data",
-      "Mapping toolkit",
-      "General plotting"
-    ],
-    correctIndex: 0,
-    answerLabel: "A. Multiple pairwise relationships",
-    explanation: "sns.pairplot visualizes all pairwise bivariate combinations and diagonal univariate distributions across multiple numerical variables."
-  },
-  {
-    id: 20,
-    category: "match",
-    categoryLabel: "3. Match the Following",
-    question: "Match Column A to Column B: What is the primary role of 'Basemap'?",
-    options: [
-      "Mapping toolkit",
-      "Statistical visualization",
-      "General plotting",
-      "Correlation matrix visualization"
-    ],
-    correctIndex: 0,
-    answerLabel: "A. Mapping toolkit",
-    explanation: "Basemap is Matplotlib's dedicated toolkit for projecting 2D maps and plotting geospatial coordinates on Earth."
+    correctAnswerText: "1–E, 2–B, 3–A, 4–F, 5–C, 6–D",
+    explanation: "Correct Mappings:\n• 1. Matplotlib ➔ E. General plotting\n• 2. Seaborn ➔ B. Statistical visualization\n• 3. GeoPandas ➔ A. Geographic data\n• 4. Heatmap ➔ F. Correlation matrix visualization\n• 5. Pairplot ➔ C. Multiple pairwise relationships\n• 6. Basemap ➔ D. Mapping toolkit"
   },
 
   // ==========================================
   // SECTION 4: TRUE OR FALSE
   // ==========================================
   {
-    id: 21,
+    id: 16,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A histogram is used to show the distribution of numerical data.",
@@ -328,12 +256,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — Histograms segment continuous numerical data into discrete bins to display frequency distribution."
   },
   {
-    id: 22,
+    id: 17,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A heatmap can visualize correlation values.",
@@ -341,12 +268,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — Heatmaps are the primary graphical format for visualizing correlation matrices in Seaborn (sns.heatmap(df.corr()))."
   },
   {
-    id: 23,
+    id: 18,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A 3D scatter plot uses only two axes.",
@@ -354,12 +280,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 1,
-    answerLabel: "False",
+    correctAnswerText: "False",
     explanation: "False — A 3D scatter plot uses three spatial dimensions (X, Y, and Z axes)."
   },
   {
-    id: 24,
+    id: 19,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A box plot can help identify outliers.",
@@ -367,12 +292,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — Points lying beyond 1.5 times the interquartile range (IQR) from the quartiles are explicitly plotted as outlier dots."
   },
   {
-    id: 25,
+    id: 20,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "Seaborn is built on top of Matplotlib.",
@@ -380,12 +304,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — Seaborn builds directly on Matplotlib's graphics engine while offering high-level statistical plotting APIs."
   },
   {
-    id: 26,
+    id: 21,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A great-circle route represents a shortest path on a sphere.",
@@ -393,12 +316,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — The arc along a great circle is the shortest distance between any two coordinates on a spherical surface."
   },
   {
-    id: 27,
+    id: 22,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A KDE plot displays only raw individual data points.",
@@ -406,12 +328,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 1,
-    answerLabel: "False",
+    correctAnswerText: "False",
     explanation: "False — Kernel Density Estimation computes and renders a continuous smoothed probability density estimate, rather than just isolated raw points."
   },
   {
-    id: 28,
+    id: 23,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "Every map projection preserves all geographic properties perfectly.",
@@ -419,12 +340,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 1,
-    answerLabel: "False",
+    correctAnswerText: "False",
     explanation: "False — Flattening a 3D sphere onto a 2D sheet inevitably introduces distortion in area, shape, distance, or angle."
   },
   {
-    id: 29,
+    id: 24,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "A pairplot can show relationships between multiple numerical variables.",
@@ -432,12 +352,11 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 0,
-    answerLabel: "True",
+    correctAnswerText: "True",
     explanation: "True — sns.pairplot creates an N × N grid displaying all pairwise bivariate joint relationships alongside univariate distributions."
   },
   {
-    id: 30,
+    id: 25,
     category: "true_false",
     categoryLabel: "4. True or False",
     question: "The viewing angle of a 3D plot cannot be changed.",
@@ -445,31 +364,29 @@ const QUIZ_QUESTIONS = [
       "True",
       "False"
     ],
-    correctIndex: 1,
-    answerLabel: "False",
+    correctAnswerText: "False",
     explanation: "False — Matplotlib provides ax.view_init(elevation, azimuth) to interactively or programmatically adjust the 3D camera viewing angle."
   },
 
   // ==========================================
-  // SECTION 5: QUICK-FIRE / ONE-WORD ANSWERS
+  // SECTION 5: QUICK-FIRE QUESTIONS
   // ==========================================
   {
-    id: 31,
+    id: 26,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which library is used for statistical visualization in Python?",
     options: [
-      "Seaborn",
       "Matplotlib",
       "NumPy",
+      "Seaborn",
       "Pandas"
     ],
-    correctIndex: 0,
-    answerLabel: "Seaborn",
+    correctAnswerText: "Seaborn",
     explanation: "Seaborn is Python's leading statistical graphics package."
   },
   {
-    id: 32,
+    id: 27,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which plot is used for correlation matrix visualization?",
@@ -479,57 +396,53 @@ const QUIZ_QUESTIONS = [
       "Box plot",
       "Line plot"
     ],
-    correctIndex: 0,
-    answerLabel: "Heatmap",
+    correctAnswerText: "Heatmap",
     explanation: "Heatmaps cleanly visualize correlation coefficients using color-coded cells."
   },
   {
-    id: 33,
+    id: 28,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which plot is used to show quartiles and outliers?",
     options: [
-      "Box plot",
       "Pie chart",
       "KDE plot",
-      "Count plot"
+      "Count plot",
+      "Box plot"
     ],
-    correctIndex: 0,
-    answerLabel: "Box plot",
+    correctAnswerText: "Box plot",
     explanation: "Box plots provide a standardized 5-point summary of data distribution."
   },
   {
-    id: 34,
+    id: 29,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which geographic coordinate specifies north–south position?",
     options: [
-      "Latitude",
       "Longitude",
+      "Latitude",
       "Azimuth",
       "Elevation"
     ],
-    correctIndex: 0,
-    answerLabel: "Latitude",
+    correctAnswerText: "Latitude",
     explanation: "Latitude lines measure angular distance north or south of the Equator (0° to ±90°)."
   },
   {
-    id: 35,
+    id: 30,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which geographic coordinate specifies east–west position?",
     options: [
-      "Longitude",
       "Latitude",
-      "Azimuth",
-      "Elevation"
+      "Elevation",
+      "Longitude",
+      "Azimuth"
     ],
-    correctIndex: 0,
-    answerLabel: "Longitude",
+    correctAnswerText: "Longitude",
     explanation: "Longitude lines measure angular distance east or west of the Prime Meridian (0° to ±180°)."
   },
   {
-    id: 36,
+    id: 31,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which plot shows a 3D point cloud of (X, Y, Z) coordinates?",
@@ -539,68 +452,63 @@ const QUIZ_QUESTIONS = [
       "Heatmap",
       "Wireframe"
     ],
-    correctIndex: 0,
-    answerLabel: "Scatter3D",
+    correctAnswerText: "Scatter3D",
     explanation: "ax.scatter3D plots three-dimensional scatter point clouds."
   },
   {
-    id: 37,
+    id: 32,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "What is the statistical technique used for estimating a smooth continuous distribution?",
     options: [
-      "KDE (Kernel Density Estimation)",
       "IQR",
       "PCA",
-      "FFT"
+      "FFT",
+      "KDE (Kernel Density Estimation)"
     ],
-    correctIndex: 0,
-    answerLabel: "KDE",
+    correctAnswerText: "KDE (Kernel Density Estimation)",
     explanation: "KDE (Kernel Density Estimation) smooths discrete data samples into continuous probability densities."
   },
   {
-    id: 38,
+    id: 33,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "What is the mathematical representation of Earth's surface on a flat map called?",
     options: [
-      "Projection",
       "Elevation",
+      "Projection",
       "Azimuth",
       "Triangulation"
     ],
-    correctIndex: 0,
-    answerLabel: "Projection",
+    correctAnswerText: "Projection",
     explanation: "Map projections transform 3D spherical coordinates to 2D planar map coordinates."
   },
   {
-    id: 39,
+    id: 34,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which Seaborn plot displays several pairwise variable relationships simultaneously?",
     options: [
-      "Pairplot",
       "Jointplot",
       "Lmplot",
+      "Pairplot",
       "FacetGrid"
     ],
-    correctIndex: 0,
-    answerLabel: "Pairplot",
+    correctAnswerText: "Pairplot",
     explanation: "sns.pairplot plots a matrix of bivariate scatter plots and univariate distribution plots."
   },
   {
-    id: 40,
+    id: 35,
     category: "quick_fire",
     categoryLabel: "5. Quick-Fire Questions",
     question: "Which Seaborn function is specifically used to plot linear regression relationships?",
     options: [
-      "Lmplot",
-      "Pairplot",
       "Heatmap",
-      "Boxplot"
+      "Boxplot",
+      "Countplot",
+      "Lmplot"
     ],
-    correctIndex: 0,
-    answerLabel: "Lmplot",
+    correctAnswerText: "Lmplot",
     explanation: "sns.lmplot plots linear regression models with scatter points across faceted dataset subsets."
   }
 ];
@@ -647,7 +555,7 @@ class QuizAudio {
       osc1.stop(now + 0.45);
       osc2.stop(now + 0.45);
     } catch (e) {
-      // Audio autoplay policy fallback
+      // Audio fallback
     }
   }
 
@@ -661,7 +569,7 @@ class QuizAudio {
 
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(220, now); // A3
-      osc.frequency.linearRampToValueAtTime(170, now + 0.25); // Lower buzz
+      osc.frequency.linearRampToValueAtTime(170, now + 0.25);
 
       gain.gain.setValueAtTime(0.12, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
@@ -691,7 +599,9 @@ class QuizEngine {
     this.currentIndex = 0;
     this.score = 0;
     this.hasAnswered = false;
-    this.userAnswers = []; // Records { question, selected, correct, isCorrect }
+    this.currentShuffledOptions = [];
+    this.currentCorrectIndex = 0;
+    this.userAnswers = [];
     this.isEmbedded = options.isEmbedded || false;
 
     this.init();
@@ -750,7 +660,10 @@ class QuizEngine {
           <div class="quiz-category-tag" id="quizCategoryTag">Category</div>
           <h2 class="quiz-question-title" id="quizQuestionTitle">Question prompt goes here...</h2>
 
-          <!-- Options Container -->
+          <!-- Match Columns Container (Rendered dynamically if match question) -->
+          <div class="match-columns-container" id="matchColumnsContainer" style="display: none;"></div>
+
+          <!-- Options Grid (Collapsed 2x2 on desktop, clean stacked on mobile) -->
           <div class="quiz-options-grid" id="quizOptionsGrid"></div>
 
           <!-- Explanation Container (Revealed upon selection) -->
@@ -782,10 +695,10 @@ class QuizEngine {
     if (!pillsContainer) return;
 
     const categories = [
-      { id: 'all', label: 'All Questions', count: 40 },
+      { id: 'all', label: 'All Questions', count: 35 },
       { id: 'mcq', label: '1. MCQs', count: 8 },
       { id: 'odd_one_out', label: '2. Odd One Out', count: 6 },
-      { id: 'match', label: '3. Match', count: 6 },
+      { id: 'match', label: '3. Match', count: 1 },
       { id: 'true_false', label: '4. True/False', count: 10 },
       { id: 'quick_fire', label: '5. Quick-Fire', count: 10 }
     ];
@@ -823,7 +736,7 @@ class QuizEngine {
     if (warning) {
       warning.style.display = 'flex';
       warning.classList.remove('shake-anim');
-      void warning.offsetWidth; // Trigger reflow
+      void warning.offsetWidth;
       warning.classList.add('shake-anim');
     }
     if (qSection) {
@@ -831,6 +744,32 @@ class QuizEngine {
       void qSection.offsetWidth;
       qSection.classList.add('shake-anim');
     }
+  }
+
+  /**
+   * Scramble and shuffle options so answers are evenly distributed across A, B, C, D
+   * and not clustered predictably in A or B!
+   */
+  shuffleOptions(optionsList, correctAnswerText, isTrueFalse = false) {
+    if (isTrueFalse) {
+      return {
+        shuffledOptions: [...optionsList],
+        correctIndex: optionsList.indexOf(correctAnswerText)
+      };
+    }
+
+    // Clone array and perform randomized Fisher-Yates scramble
+    const list = [...optionsList];
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
+
+    const correctIndex = list.indexOf(correctAnswerText);
+    return {
+      shuffledOptions: list,
+      correctIndex: correctIndex >= 0 ? correctIndex : 0
+    };
   }
 
   loadQuestion() {
@@ -851,6 +790,39 @@ class QuizEngine {
     // Update Category Tag & Title
     this.container.querySelector('#quizCategoryTag').textContent = q.categoryLabel;
     this.container.querySelector('#quizQuestionTitle').textContent = `${this.currentIndex + 1}. ${q.question}`;
+
+    // Handle Match the Following Columns Display
+    const matchColumnsContainer = this.container.querySelector('#matchColumnsContainer');
+    if (q.matchColumns) {
+      matchColumnsContainer.style.display = 'grid';
+      matchColumnsContainer.innerHTML = `
+        <div class="match-column col-a">
+          <div class="match-col-header">Column A</div>
+          <div class="match-col-items">
+            ${q.matchColumns.colA.map(item => `
+              <div class="match-col-item">
+                <span class="match-badge num-badge">${item.num}</span>
+                <span class="match-text">${item.text}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="match-column col-b">
+          <div class="match-col-header">Column B</div>
+          <div class="match-col-items">
+            ${q.matchColumns.colB.map(item => `
+              <div class="match-col-item">
+                <span class="match-badge alpha-badge">${item.num}</span>
+                <span class="match-text">${item.text}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else {
+      matchColumnsContainer.style.display = 'none';
+      matchColumnsContainer.innerHTML = '';
+    }
 
     // Update Counter & Progress
     const counterEl = this.container.querySelector('#quizQuestionCounter');
@@ -879,19 +851,30 @@ class QuizEngine {
       nextBtnText.textContent = "Next Question ➔";
     }
 
-    // Render Options
+    // Scramble / Collapse options dynamically so answers are distributed across A, B, C, D
+    const isTrueFalse = q.category === 'true_false';
+    const { shuffledOptions, correctIndex } = this.shuffleOptions(q.options, q.correctAnswerText, isTrueFalse);
+    this.currentShuffledOptions = shuffledOptions;
+    this.currentCorrectIndex = correctIndex;
+
+    // Render Options in collapsed/compact grid
     const optionsGrid = this.container.querySelector('#quizOptionsGrid');
     optionsGrid.innerHTML = '';
+    if (isTrueFalse) {
+      optionsGrid.classList.add('two-col-compact');
+    } else {
+      optionsGrid.classList.remove('two-col-compact');
+    }
 
     const optionLetters = ['A', 'B', 'C', 'D'];
 
-    q.options.forEach((optText, optIdx) => {
+    this.currentShuffledOptions.forEach((optText, optIdx) => {
       const btn = document.createElement('button');
       btn.className = 'quiz-option-btn';
       btn.dataset.index = optIdx;
 
       let letterBadge = optionLetters[optIdx] || (optIdx + 1);
-      if (q.category === 'true_false') {
+      if (isTrueFalse) {
         letterBadge = optIdx === 0 ? '✓' : '✗';
       }
 
@@ -910,19 +893,23 @@ class QuizEngine {
   }
 
   selectOption(selectedIndex) {
-    if (this.hasAnswered) return; // Disallow multiple clicks
+    if (this.hasAnswered) return;
     this.hasAnswered = true;
 
     const q = this.activeQuestions[this.currentIndex];
-    const isCorrect = selectedIndex === q.correctIndex;
+    const isCorrect = selectedIndex === this.currentCorrectIndex;
+    const optionLetters = ['A', 'B', 'C', 'D'];
+    const correctLetter = q.category === 'true_false' 
+      ? (this.currentCorrectIndex === 0 ? 'True' : 'False') 
+      : `${optionLetters[this.currentCorrectIndex]}. ${this.currentShuffledOptions[this.currentCorrectIndex]}`;
 
     // Record user answer
     this.userAnswers.push({
       question: q.question,
       categoryLabel: q.categoryLabel,
-      options: q.options,
+      options: this.currentShuffledOptions,
       selectedIndex: selectedIndex,
-      correctIndex: q.correctIndex,
+      correctIndex: this.currentCorrectIndex,
       isCorrect: isCorrect,
       explanation: q.explanation
     });
@@ -937,11 +924,11 @@ class QuizEngine {
     // Update Live Score Counter
     this.container.querySelector('#quizLiveScore').textContent = this.score;
 
-    // Style All Option Buttons
+    // Style Option Buttons
     const optionBtns = this.container.querySelectorAll('.quiz-option-btn');
     optionBtns.forEach((btn, idx) => {
-      btn.disabled = true; // Lock all options
-      if (idx === q.correctIndex) {
+      btn.disabled = true;
+      if (idx === this.currentCorrectIndex) {
         btn.classList.add('correct-answer');
         btn.querySelector('.option-status-icon').innerHTML = `
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
@@ -962,16 +949,15 @@ class QuizEngine {
 
     if (isCorrect) {
       explanationBox.className = 'quiz-explanation-box correct-box';
-      badge.innerHTML = `🎉 Correct! (${q.answerLabel || q.options[q.correctIndex]})`;
+      badge.innerHTML = `🎉 Correct! (${correctLetter})`;
     } else {
       explanationBox.className = 'quiz-explanation-box incorrect-box';
-      badge.innerHTML = `❌ Incorrect. Correct Answer: ${q.answerLabel || q.options[q.correctIndex]}`;
+      badge.innerHTML = `❌ Incorrect. Correct Answer: ${correctLetter}`;
     }
 
-    text.textContent = q.explanation;
+    text.innerHTML = q.explanation.replace(/\n/g, '<br>');
     explanationBox.style.display = 'block';
 
-    // Hide any skip warnings
     const warning = this.container.querySelector('#quizLockWarning');
     if (warning) warning.style.display = 'none';
 
@@ -994,7 +980,6 @@ class QuizEngine {
     const total = this.activeQuestions.length;
     const percentage = Math.round((this.score / total) * 100);
 
-    // Update Progress bar to 100%
     this.container.querySelector('#quizProgressBar').style.width = '100%';
 
     const bodySection = this.container.querySelector('#quizBodySection');
@@ -1002,7 +987,6 @@ class QuizEngine {
     bodySection.style.display = 'none';
     resultDashboard.style.display = 'block';
 
-    // Grade and Badge Determination
     let badgeTitle = "";
     let badgeEmoji = "";
     let badgeColor = "";
@@ -1030,7 +1014,6 @@ class QuizEngine {
       message = "You can do better! Read the seminar slides and Jupyter notebook to master the concepts.";
     }
 
-    // Trigger fireworks/confetti if score >= 70%
     if (percentage >= 70 && typeof launchFireworksConfetti === 'function') {
       setTimeout(launchFireworksConfetti, 120);
     }
@@ -1083,7 +1066,7 @@ class QuizEngine {
           </a>
         </div>
 
-        <!-- Review Accordion Container (Hidden initially) -->
+        <!-- Review Accordion Container -->
         <div class="quiz-answers-review" id="quizAnswersReview" style="display: none;">
           <h3 class="review-heading">Detailed Question Review (${total} Questions)</h3>
           <div class="review-items-list">
@@ -1105,7 +1088,7 @@ class QuizEngine {
                   ` : ''}
                 </div>
                 <div class="review-item-explanation">
-                  💡 <strong>Explanation:</strong> ${item.explanation}
+                  💡 <strong>Explanation:</strong> ${item.explanation.replace(/\n/g, '<br>')}
                 </div>
               </div>
             `).join('')}
@@ -1144,12 +1127,10 @@ window.QuizEngine = QuizEngine;
 window.QUIZ_QUESTIONS = QUIZ_QUESTIONS;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Check if standalone quiz container exists
   if (document.getElementById('standaloneQuizContainer')) {
     window.mainQuizEngine = new QuizEngine('standaloneQuizContainer');
   }
 
-  // Check if slide embedded quiz exists (e.g. in reference.html)
   if (document.getElementById('slideEmbeddedQuizContainer')) {
     window.embeddedQuizEngine = new QuizEngine('slideEmbeddedQuizContainer', { isEmbedded: true });
   }
