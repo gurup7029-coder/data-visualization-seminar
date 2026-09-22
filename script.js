@@ -614,16 +614,23 @@ function initChartForActiveSlide(slideElement) {
           setTimeout(() => {
             try {
               initFunc();
+              setTimeout(() => {
+                if (typeof Plotly !== 'undefined' && el.data) {
+                  Plotly.Plots.resize(el);
+                }
+              }, 60);
             } catch (err) {
               console.warn('Lazy chart init notice for ' + id, err);
             }
           }, 30);
         });
-      } else if (typeof Plotly !== 'undefined') {
+      } else if (typeof Plotly !== 'undefined' && el.data) {
         requestAnimationFrame(() => {
-          try {
-            Plotly.Plots.resize(el);
-          } catch(e) {}
+          setTimeout(() => {
+            try {
+              Plotly.Plots.resize(el);
+            } catch(e) {}
+          }, 20);
         });
       }
     }
@@ -667,10 +674,17 @@ function init3DHelixChart() {
   };
 
   const layout = {
+    autosize: true,
+    height: 315,
     margin: { l: 0, r: 0, b: 0, t: 0 },
     paper_bgcolor: 'transparent',
     plot_bgcolor: 'transparent',
     scene: {
+      aspectmode: 'cube',
+      camera: {
+        eye: { x: 1.45, y: 1.45, z: 1.15 },
+        center: { x: 0, y: 0, z: 0.15 }
+      },
       xaxis: { title: 'X = sin(z)', gridcolor: '#e2e8f0' },
       yaxis: { title: 'Y = cos(z)', gridcolor: '#e2e8f0' },
       zaxis: { title: 'Z (linspace)', gridcolor: '#e2e8f0' }
@@ -705,6 +719,7 @@ function initContourChart() {
       type: 'surface',
       x: x, y: y, z: z,
       colorscale: 'Portland',
+      colorbar: { len: 0.75, y: 0.5, thickness: 14 },
       contours: {
         z: {
           show: true,
@@ -722,13 +737,19 @@ function initContourChart() {
   }
 
   const layout = {
+    autosize: true,
+    height: 315,
     margin: { l: 0, r: 0, b: 0, t: 0 },
     paper_bgcolor: 'transparent',
     scene: {
+      aspectmode: 'cube',
+      camera: {
+        eye: { x: 1.5, y: 1.5, z: 1.2 },
+        center: { x: 0, y: 0, z: 0.12 }
+      },
       xaxis: { title: 'X' },
       yaxis: { title: 'Y' },
-      zaxis: { title: 'Z = sin(√(x²+y²))' },
-      camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
+      zaxis: { title: 'Z = sin(√(x²+y²))' }
     }
   };
 
@@ -766,11 +787,19 @@ function initViewInitCameraChart() {
     z.push(row);
   }
 
-  const trace = { type: 'surface', x: x, y: y, z: z, colorscale: 'Viridis' };
+  const trace = { type: 'surface', x: x, y: y, z: z, colorscale: 'Viridis', colorbar: { len: 0.75, y: 0.5, thickness: 14 } };
   const layout = {
+    autosize: true,
+    height: 315,
     margin: { l: 0, r: 0, b: 0, t: 0 },
     paper_bgcolor: 'transparent',
-    scene: { camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } } }
+    scene: {
+      aspectmode: 'cube',
+      camera: {
+        eye: { x: 1.5, y: 1.5, z: 1.2 },
+        center: { x: 0, y: 0, z: 0.12 }
+      }
+    }
   };
 
   Plotly.newPlot(container, [trace], layout, { responsive: true, displayModeBar: false });
@@ -789,7 +818,10 @@ function initViewInitCameraChart() {
     const eyeY = r * Math.cos(radElev) * Math.sin(radAzim);
     const eyeZ = r * Math.sin(radElev);
 
-    Plotly.relayout(container, { 'scene.camera.eye': { x: eyeX, y: eyeY, z: eyeZ } });
+    Plotly.relayout(container, {
+      'scene.camera.eye': { x: eyeX, y: eyeY, z: eyeZ },
+      'scene.camera.center': { x: 0, y: 0, z: 0.12 }
+    });
 
     if (codeSpan) {
       codeSpan.innerHTML = `ax.view_init(<span class="token-highlight">elev=${elev}, azim=${azim}</span>)`;
@@ -855,13 +887,19 @@ function initWireframeSurfaceChart() {
   }
 
   const layout = {
+    autosize: true,
+    height: 315,
     margin: { l: 0, r: 0, b: 0, t: 0 },
     paper_bgcolor: 'transparent',
     scene: {
+      aspectmode: 'cube',
+      camera: {
+        eye: { x: 1.5, y: 1.5, z: 1.2 },
+        center: { x: 0, y: 0, z: 0.12 }
+      },
       xaxis: { title: 'X', gridcolor: '#cbd5e1' },
       yaxis: { title: 'Y', gridcolor: '#cbd5e1' },
-      zaxis: { title: 'Z = sin(√(x²+y²))', gridcolor: '#cbd5e1' },
-      camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
+      zaxis: { title: 'Z = sin(√(x²+y²))', gridcolor: '#cbd5e1' }
     }
   };
 
@@ -881,7 +919,6 @@ function initTriangulationChart() {
   const container = document.getElementById('triangulation3dChart');
   if (!container || typeof Plotly === 'undefined') return;
 
-  // Polar random point cloud (matching seminar formula: theta = 2*pi*rand, r = 6*rand, z = sin(sqrt(x^2+y^2)))
   const n = 360;
   const x = [], y = [], z = [];
   let seed = 42;
@@ -909,6 +946,7 @@ function initTriangulationChart() {
       x: x, y: y, z: z,
       intensity: z,
       colorscale: cmap,
+      colorbar: { len: 0.75, y: 0.5, thickness: 14 },
       delaunayaxis: 'z',
       opacity: 0.92,
       showscale: true,
@@ -931,13 +969,19 @@ function initTriangulationChart() {
   }
 
   const layout = {
+    autosize: true,
+    height: 315,
     margin: { l: 0, r: 0, b: 0, t: 0 },
     paper_bgcolor: 'transparent',
     scene: {
+      aspectmode: 'cube',
+      camera: {
+        eye: { x: 1.45, y: 1.45, z: 1.25 },
+        center: { x: 0, y: 0, z: 0.12 }
+      },
       xaxis: { title: 'X = r·sin(θ)', gridcolor: '#cbd5e1' },
       yaxis: { title: 'Y = r·cos(θ)', gridcolor: '#cbd5e1' },
-      zaxis: { title: 'Z = sin(√(x²+y²))', gridcolor: '#cbd5e1' },
-      camera: { eye: { x: 1.4, y: 1.4, z: 1.3 } }
+      zaxis: { title: 'Z = sin(√(x²+y²))', gridcolor: '#cbd5e1' }
     }
   };
 
@@ -964,11 +1008,11 @@ function initTriangulationChart() {
    -------------------------------------------------------------------------- */
 function init3DChartActionControls() {
   const defaultCameras = {
-    helix3dChart: { eye: { x: 1.5, y: 1.5, z: 1.25 } },
-    contour3dChart: { eye: { x: 1.5, y: 1.5, z: 1.2 } },
-    viewInitChart: { eye: { x: 1.5, y: 1.5, z: 1.2 } },
-    wireframeSurfaceChart: { eye: { x: 1.5, y: 1.5, z: 1.2 } },
-    triangulation3dChart: { eye: { x: 1.4, y: 1.4, z: 1.3 } }
+    helix3dChart: { eye: { x: 1.45, y: 1.45, z: 1.15 }, center: { x: 0, y: 0, z: 0.15 } },
+    contour3dChart: { eye: { x: 1.5, y: 1.5, z: 1.2 }, center: { x: 0, y: 0, z: 0.12 } },
+    viewInitChart: { eye: { x: 1.5, y: 1.5, z: 1.2 }, center: { x: 0, y: 0, z: 0.12 } },
+    wireframeSurfaceChart: { eye: { x: 1.5, y: 1.5, z: 1.2 }, center: { x: 0, y: 0, z: 0.12 } },
+    triangulation3dChart: { eye: { x: 1.45, y: 1.45, z: 1.25 }, center: { x: 0, y: 0, z: 0.12 } }
   };
 
   document.querySelectorAll('.btn-zoom-in').forEach(btn => {
@@ -1023,11 +1067,11 @@ function resetPlotlyScene(containerId, defaultCam) {
   const el = document.getElementById(containerId);
   if (!el || typeof Plotly === 'undefined') return;
 
-  const targetCam = defaultCam || { eye: { x: 1.5, y: 1.5, z: 1.25 } };
+  const targetCam = defaultCam || { eye: { x: 1.5, y: 1.5, z: 1.1 }, center: { x: 0, y: 0, z: 0.22 } };
   Plotly.relayout(el, {
     'scene.camera': {
       eye: targetCam.eye,
-      center: { x: 0, y: 0, z: 0 },
+      center: targetCam.center || { x: 0, y: 0, z: 0.22 },
       up: { x: 0, y: 0, z: 1 }
     }
   });

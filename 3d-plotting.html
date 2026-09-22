@@ -131,25 +131,10 @@ ax = plt.axes(projection='3d')</code></pre>
               </button>
             </div>
           </div>
-          <div class="chart-box" id="helix3dChart" style="min-height:380px;"></div>
+          <div class="chart-box" id="helix3dChart"></div>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">
             💡 <em>Notice that by default, the scatter points have their transparency adjusted to give a sense of depth on the page.</em>
           </p>
-
-          <!-- Real-World Example Box -->
-          <div class="topic-realworld-box">
-            <div class="realworld-box-header">
-              <span>💡 Real-World Example & Industry Application</span>
-            </div>
-            <div class="realworld-box-content">
-              <div class="realworld-item example">
-                <strong>🌐 Real-World Example:</strong> Visualizing the double-helix structure of DNA polymers and tracking spiral trajectories of charged subatomic particles inside synchrotron particle accelerators.
-              </div>
-              <div class="realworld-item usage">
-                <strong>🏢 Where It Is Used:</strong> Structural biophysics & bioinformatics laboratories, pharmaceutical molecular design, and high-energy physics research (CERN).
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="colab-execution-cell">
@@ -176,6 +161,21 @@ plt.show()</code></pre>
           <div class="colab-cell-output">
             <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
             <img src="assets/images/3d_helix.png" alt="3D Helix Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-World Example Box -->
+      <div class="topic-realworld-box" style="margin-top:1.25rem;">
+        <div class="realworld-box-header">
+          <span>💡 Real-World Example & Industry Application</span>
+        </div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example">
+            <strong>🌐 Real-World Example:</strong> Visualizing the double-helix structure of DNA polymers and tracking spiral trajectories of charged subatomic particles inside synchrotron particle accelerators.
+          </div>
+          <div class="realworld-item usage">
+            <strong>🏢 Where It Is Used:</strong> Structural biophysics & bioinformatics laboratories, pharmaceutical molecular design, and high-energy physics research (CERN).
           </div>
         </div>
       </div>
@@ -289,22 +289,7 @@ plt.show()</code></pre>
               <input type="range" class="control-slider" id="contourLevelSlider" min="5" max="100" step="5" value="50" />
             </div>
           </div>
-          <div class="chart-box" id="contour3dChart" style="min-height:380px;"></div>
-
-          <!-- Real-World Example Box -->
-          <div class="topic-realworld-box">
-            <div class="realworld-box-header">
-              <span>💡 Real-World Example & Industry Application</span>
-            </div>
-            <div class="realworld-box-content">
-              <div class="realworld-item example">
-                <strong>🌐 Real-World Example:</strong> Mapping atmospheric isobaric pressure ridges for hurricane intensity forecasting and seismic acoustic depth reflection gradients.
-              </div>
-              <div class="realworld-item usage">
-                <strong>🏢 Where It Is Used:</strong> Meteorology centers (cyclone path predictions), geophysics subsurface exploration, and audio acoustic engineering.
-              </div>
-            </div>
-          </div>
+          <div class="chart-box" id="contour3dChart"></div>
         </div>
 
         <div class="colab-execution-cell">
@@ -332,6 +317,21 @@ plt.show()</code></pre>
           <div class="colab-cell-output">
             <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
             <img src="assets/images/3d_contour.png" alt="3D Contour Output" style="width:100%; border-radius:var(--radius-sm);" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-World Example Box -->
+      <div class="topic-realworld-box" style="margin-top:1.25rem;">
+        <div class="realworld-box-header">
+          <span>💡 Real-World Example & Industry Application</span>
+        </div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example">
+            <strong>🌐 Real-World Example:</strong> Mapping atmospheric isobaric pressure ridges for hurricane intensity forecasting and seismic acoustic depth reflection gradients.
+          </div>
+          <div class="realworld-item usage">
+            <strong>🏢 Where It Is Used:</strong> Meteorology centers (cyclone path predictions), geophysics subsurface exploration, and audio acoustic engineering.
           </div>
         </div>
       </div>
@@ -380,7 +380,7 @@ plt.show()</code></pre>
               <input type="range" class="control-slider" id="azimSlider" min="-180" max="180" step="5" value="35" />
             </div>
           </div>
-          <div class="chart-box" id="viewInitChart" style="min-height:380px;"></div>
+          <div class="chart-box" id="viewInitChart"></div>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">
             <code id="viewInitCodeSnippet">ax.view_init(<span class="token-highlight">elev=60, azim=35</span>)</code>
           </p>
@@ -482,22 +482,7 @@ fig</code></pre>
               </select>
             </div>
           </div>
-          <div class="chart-box" id="wireframeSurfaceChart" style="min-height:380px;"></div>
-
-          <!-- Real-World Example Box -->
-          <div class="topic-realworld-box">
-            <div class="realworld-box-header">
-              <span>💡 Real-World Example & Industry Application</span>
-            </div>
-            <div class="realworld-box-content">
-              <div class="realworld-item example">
-                <strong>🌐 Real-World Example:</strong> Modeling aerodynamic lift & drag pressure distributions over airplane wings and structural mechanical stress loads across bridge surfaces.
-              </div>
-              <div class="realworld-item usage">
-                <strong>🏢 Where It Is Used:</strong> Aerospace engineering, Finite Element Analysis (FEA), and architectural tensile membrane roof design.
-              </div>
-            </div>
-          </div>
+          <div class="chart-box" id="wireframeSurfaceChart"></div>
         </div>
 
         <div>
@@ -531,6 +516,21 @@ plt.show()</code></pre>
               <span class="colab-output-badge">Colab Real Output [PNG Image]</span>
               <img src="assets/images/3d_wireframe_surface.png" alt="Wireframe & Surface Output" style="width:100%; border-radius:var(--radius-sm);" />
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-World Example Box -->
+      <div class="topic-realworld-box" style="margin-top:1.25rem;">
+        <div class="realworld-box-header">
+          <span>💡 Real-World Example & Industry Application</span>
+        </div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example">
+            <strong>🌐 Real-World Example:</strong> Modeling aerodynamic lift & drag pressure distributions over airplane wings and structural mechanical stress loads across bridge surfaces.
+          </div>
+          <div class="realworld-item usage">
+            <strong>🏢 Where It Is Used:</strong> Aerospace engineering, Finite Element Analysis (FEA), and architectural tensile membrane roof design.
           </div>
         </div>
       </div>
@@ -592,22 +592,7 @@ plt.show()</code></pre>
             </div>
           </div>
 
-          <div class="chart-box" id="triangulation3dChart" style="min-height:380px;"></div>
-
-          <!-- Real-World Example Box -->
-          <div class="topic-realworld-box">
-            <div class="realworld-box-header">
-              <span>💡 Real-World Example & Industry Application</span>
-            </div>
-            <div class="realworld-box-content">
-              <div class="realworld-item example">
-                <strong>🌐 Real-World Example:</strong> Airborne LiDAR drone sensor scans creating seamless 3D elevation meshes of jagged mountain terrain from unstructured point clouds.
-              </div>
-              <div class="realworld-item usage">
-                <strong>🏢 Where It Is Used:</strong> Geographic Information Systems (GIS), mining quarry volume estimation, civil engineering cut-and-fill surveying, and autonomous vehicle LiDAR obstacle mapping.
-              </div>
-            </div>
-          </div>
+          <div class="chart-box" id="triangulation3dChart"></div>
         </div>
 
         <div>
@@ -641,6 +626,21 @@ ax.scatter(x, y, z, c=z, cmap='viridis',
               <li><strong>ax.plot_trisurf():</strong> Takes raw (x, y, z) arrays and auto-triangulates them into a surface mesh.</li>
               <li><strong>Random Sampling:</strong> In this example, 1000 random polar-coordinate points are scattered across the sinusoidal function <code>f(x,y) = sin(√(x²+y²))</code>.</li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-World Example Box -->
+      <div class="topic-realworld-box" style="margin-top:1.25rem;">
+        <div class="realworld-box-header">
+          <span>💡 Real-World Example & Industry Application</span>
+        </div>
+        <div class="realworld-box-content">
+          <div class="realworld-item example">
+            <strong>🌐 Real-World Example:</strong> Airborne LiDAR drone sensor scans creating seamless 3D elevation meshes of jagged mountain terrain from unstructured point clouds.
+          </div>
+          <div class="realworld-item usage">
+            <strong>🏢 Where It Is Used:</strong> Geographic Information Systems (GIS), mining quarry volume estimation, civil engineering cut-and-fill surveying, and autonomous vehicle LiDAR obstacle mapping.
           </div>
         </div>
       </div>

@@ -552,89 +552,77 @@ body.hovering-code .custom-cursor-circle {
 .presentation-container { padding-top: 70px; min-height: 100vh; }
 
 /* ============================================================
-   DISTINCT SLIDE TRANSITION ANIMATIONS PER PAGE
+   CLEAN, RELIABLE SLIDE TRANSITIONS (NO MATRIX/PERSPECTIVE DISTORTION)
    ============================================================ */
 .slide-section {
   min-height: calc(100vh - 70px);
-  padding: 2.5rem 2rem 6rem;
-  display: none; flex-direction: column; justify-content: center;
-  max-width: 1300px; margin: 0 auto;
+  padding: 1.25rem 2rem 5rem;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 1360px;
+  margin: 0 auto;
   opacity: 0;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition: opacity 0.25s ease-out;
 }
 
 .slide-section.active {
   display: flex !important;
   opacity: 1 !important;
+  animation: slideFadeIn 0.25s ease-out forwards !important;
 }
 
-/* Slide 1 Transition: Scale & Fade Entrance */
-.slide-section#slide-1.active {
-  animation: slideZoomFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideZoomFade {
-  0% { opacity: 0; transform: scale(0.92) translateY(24px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes slideFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Slide 2 Transition: Slide In From Right */
-.slide-section#slide-2.active {
-  animation: slideInRightAnim 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideInRightAnim {
-  0% { opacity: 0; transform: translateX(60px) rotate(1deg); }
-  100% { opacity: 1; transform: translateX(0) rotate(0deg); }
-}
-
-/* Slide 3 Transition: 3D Flip In Y */
-.slide-section#slide-3.active {
-  animation: slideFlipYAnim 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideFlipYAnim {
-  0% { opacity: 0; transform: perspective(1000px) rotateY(-12deg) translateY(30px); }
-  100% { opacity: 1; transform: perspective(1000px) rotateY(0deg) translateY(0); }
+/* 3D Interactive Chart Canvas Containers — Fixed Height & Crisp Bounds */
+.chart-box {
+  width: 100% !important;
+  height: 315px !important;
+  min-height: 315px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: var(--radius-md);
+  margin: 0.25rem 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: block !important;
 }
 
-/* Slide 4 Transition: Upward Elastic Bounce */
-.slide-section#slide-4.active {
-  animation: slideBounceUpAnim 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideBounceUpAnim {
-  0% { opacity: 0; transform: translateY(70px) scale(0.96); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Slide 5 & Slide 8 Transition: Thank You Glow & Bounce */
-.slide-section#slide-5.active, .slide-section#slide-8.active {
-  animation: slideGlowBounceAnim 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideGlowBounceAnim {
-  0% { opacity: 0; transform: scale(0.88) translateY(36px); }
-  60% { transform: scale(1.02) translateY(-6px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+.chart-box > div,
+.chart-box .plot-container,
+.chart-box .gl-container,
+.chart-box .svg-container,
+.chart-box canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.slide-section.active {
-  opacity: 1 !important;
+.interactive-card:has(.chart-box):hover,
+.interactive-card:has(#basemapD3Chart):hover,
+.interactive-card:has(#worldCitiesMapChart):hover {
+  transform: none !important;
 }
 
 .slide-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border-radius: var(--radius-full);
+  padding: 4px 12px; border-radius: var(--radius-full);
   background: var(--accent-primary-light); color: var(--accent-primary);
-  font-weight: 700; font-size: 0.825rem;
-  text-transform: uppercase; letter-spacing: 1px;
-  width: fit-content; margin-bottom: 0.75rem;
+  font-weight: 700; font-size: 0.775rem;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  width: fit-content; margin-bottom: 0.35rem;
 }
 .slide-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
   font-weight: 800; line-height: 1.15;
-  color: var(--text-main); margin-bottom: 0.75rem;
+  color: var(--text-main); margin-bottom: 0.35rem;
 }
 .slide-subtitle {
-  font-size: 1.05rem; color: var(--text-muted);
-  max-width: 850px; margin-bottom: 2rem; line-height: 1.8;
+  font-size: 0.95rem; color: var(--text-muted);
+  max-width: 950px; margin-bottom: 1rem; line-height: 1.5;
 }
 
 /* CARDS & GRIDS */
@@ -644,7 +632,7 @@ body.hovering-code .custom-cursor-circle {
   gap: 1.75rem; margin: 1.5rem 0;
 }
 .card-grid-2col {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem;
 }
 @media (max-width: 992px) {
   .card-grid-2col { grid-template-columns: 1fr; }
@@ -654,7 +642,7 @@ body.hovering-code .custom-cursor-circle {
   background: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: 1.25rem 1.5rem;
   box-shadow: var(--shadow-md);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -664,7 +652,7 @@ body.hovering-code .custom-cursor-circle {
   border-color: rgba(37,99,235,0.2);
 }
 .card-header {
-  display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem;
 }
 .card-title { font-size: 1.25rem; font-weight: 700; font-family: var(--font-heading); }
 
@@ -766,19 +754,11 @@ code[class*="language-"],
   padding: 2px 4px; border-radius: 3px; font-weight: 700;
 }
 
-/* CHART BOX & CONTROLS */
-.chart-box {
-  width: 100%; min-height: 360px;
-  background: #fafcff;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  position: relative; display: flex;
-  align-items: center; justify-content: center; overflow: hidden;
-}
+/* CONTROLS PANEL */
 .controls-panel {
-  display: flex; flex-wrap: wrap; gap: 1.25rem;
-  padding: 1.25rem; background: var(--bg-secondary);
-  border-radius: var(--radius-md); margin-bottom: 1.25rem;
+  display: flex; flex-wrap: wrap; gap: 0.85rem;
+  padding: 0.6rem 1rem; background: var(--bg-secondary);
+  border-radius: var(--radius-md); margin-bottom: 0.6rem;
   border: 1px solid var(--border-light);
 }
 .control-group {
